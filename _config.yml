@@ -42,6 +42,7 @@ keywords:
   - Tijmen op Stoom
 
 # Build
+future: true  # publiceer ook documenten met een toekomstige datum
 markdown: kramdown
 highlighter: rouge
 encoding: utf-8
