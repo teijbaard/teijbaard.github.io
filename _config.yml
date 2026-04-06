@@ -1,0 +1,60 @@
+title: "Tijmen op Stoom"
+description: "Treinspotter Tijmen (8) op avontuur langs stoomtreinen, ICE, ICNG en goederentreinen!"
+url: "https://tijmenopstoom.github.io"
+baseurl: ""
+
+# Collections
+collections:
+  expedities:
+    output: true
+    permalink: /expedities/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "expedities"
+    values:
+      layout: "expeditie"
+
+# Author & brand
+author:
+  name: "Tijmen op Stoom"
+  description: "Junior treinspotter, 8 jaar oud en gek op alles wat rijdt op rails."
+
+# Social platforms
+social:
+  youtube: "https://www.youtube.com/@TijmenopStoom"
+  youtube_channel_id: "TijmenopStoom"
+  instagram: "https://www.instagram.com/TijmenOpStoom"
+
+# SEO meta tags
+keywords:
+  - Treinspotter
+  - Stoomtreinen
+  - Junior Expert
+  - NS 1607
+  - VSM 23076
+  - ICE treinen
+  - ICNG
+  - Goederentreinen
+  - Treinen voor kinderen
+  - Tijmen op Stoom
+
+# Build
+markdown: kramdown
+highlighter: rouge
+encoding: utf-8
+
+# Plugins (supported on GitHub Pages)
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude from build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - .git
