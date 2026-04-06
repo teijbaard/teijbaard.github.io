@@ -3,17 +3,20 @@ name: Deploy Jekyll site to GitHub Pages
 on:
   push:
     branches: [main]
-  workflow_dispatch:  # handmatig triggeren via GitHub UI
+  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Voorkom dat twee deploys tegelijk draaien
 concurrency:
   group: pages
   cancel-in-progress: false
+
+env:
+  # Opt into Node.js 24 now to avoid deprecation warnings
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
@@ -26,14 +29,14 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
-          bundler-cache: true  # cachet gems automatisch
+          bundler-cache: true
 
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
 
       - name: Build with Jekyll
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --verbose --trace
         env:
           JEKYLL_ENV: production
 
