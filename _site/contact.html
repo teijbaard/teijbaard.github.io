@@ -4,231 +4,248 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact | Tijmen op Stoom</title>
-  <meta name="description" content="Zakelijke aanvragen voor Tijmen op Stoom? Neem contact op via e-mail. Dit platform wordt beheerd door de ouders van Tijmen.">
+  <meta name="description" content="Zakelijke aanvragen voor Tijmen op Stoom. Dit platform wordt beheerd door de ouders van Tijmen.">
   <meta name="keywords" content="Treinspotter, Stoomtreinen, Junior Expert, NS 1607, VSM 23076, ICE, ICNG, Goederentreinen, Tijmen op Stoom">
   <meta name="robots" content="index, follow">
 
-  <!-- Open Graph / Social sharing -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Contact | Tijmen op Stoom">
-  <meta property="og:description" content="Zakelijke aanvragen voor Tijmen op Stoom? Neem contact op via e-mail. Dit platform wordt beheerd door de ouders van Tijmen.">
+  <meta property="og:description" content="Zakelijke aanvragen voor Tijmen op Stoom. Dit platform wordt beheerd door de ouders van Tijmen.">
   <meta property="og:image" content="https://tijmenopstoom.github.io/assets/img/logo.webp">
   <meta property="og:url" content="https://tijmenopstoom.github.io/contact.html">
-  <meta property="og:site_name" content="Tijmen op Stoom">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://tijmenopstoom.github.io/assets/img/logo.webp">
 
-  <!-- Fonts: Bebas Neue (display/industrial) + Nunito (kid-friendly body) -->
+  <!-- Fonts: Fira Sans ExtraBold (headings/nav) + Inter (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,700;0,800;1,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/webp" href="/assets/img/logo.webp">
   <link rel="apple-touch-icon" href="/assets/img/logo.webp">
 
   <style>
     /* ============================================================
-       DESIGN TOKENS
+       DESIGN TOKENS — Warm Journey palette
        ============================================================ */
     :root {
-      --navy:        #1A3A5C;
-      --navy-dark:   #0D1F33;
-      --navy-mid:    #234873;
-      --ochre:       #E8A020;
-      --ochre-light: #F5C55A;
-      --ochre-pale:  #FDF3DC;
-      --white:       #FFFFFF;
-      --off-white:   #F8F5EE;
-      --text:        #1A1A2E;
-      --text-muted:  #5A6272;
-      --radius:      12px;
-      --radius-lg:   20px;
-      --shadow:      0 4px 24px rgba(13, 31, 51, 0.12);
-      --shadow-lg:   0 12px 48px rgba(13, 31, 51, 0.20);
-      --transition:  0.25s ease;
-      --max-width:   1100px;
+      /* Backgrounds */
+      --bg:           #F7F4EF;
+      --surface:      #FFFFFF;
+      --surface-warm: #F2EDE6;
+
+      /* Text */
+      --text:         #1C1A17;
+      --text-muted:   #7A726A;
+      --text-subtle:  #A89E95;
+
+      /* Accent: roest/koper — stoomtrein */
+      --rust:         #C04E1A;
+      --rust-dark:    #9A3C12;
+      --rust-light:   #F5EAE3;
+      --rust-mid:     #D4692E;
+
+      /* Secondary: bosgroen — landschap */
+      --forest:       #3A6B4E;
+      --forest-light: #EAF2EE;
+
+      /* Neutral borders & dividers */
+      --border:       #E2D9CE;
+      --border-light: #EDE8E0;
+
+      /* Layout */
+      --max-width:    1080px;
+      --radius:       10px;
+      --radius-lg:    18px;
+
+      /* Transitions */
+      --t:            0.2s ease;
     }
 
     /* ============================================================
-       RESET & BASE
+       RESET
        ============================================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; font-size: 16px; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
     body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--off-white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
       overflow-x: hidden;
     }
 
     img { max-width: 100%; height: auto; display: block; }
     a { color: inherit; text-decoration: none; }
-
-    h1, h2, h3, h4, .display {
-      font-family: 'Bebas Neue', cursive;
-      letter-spacing: 0.04em;
-      line-height: 1.1;
-    }
-
-    p { margin-bottom: 1rem; }
+    p { margin-bottom: 1em; }
     p:last-child { margin-bottom: 0; }
+
+    h1, h2, h3, h4, h5,
+    .heading {
+      font-family: 'Fira Sans', sans-serif;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
 
     .container {
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: 0 1.25rem;
+      padding: 0 1.5rem;
     }
 
     /* ============================================================
-       TRAIN TRACK DIVIDER
+       TRACK DIVIDER — minimaal, sierlijk
        ============================================================ */
     .track-line {
-      height: 8px;
-      background:
-        linear-gradient(var(--navy-dark), var(--navy-dark)) center/100% 2px no-repeat,
-        repeating-linear-gradient(
-          90deg,
-          var(--ochre) 0px,
-          var(--ochre) 24px,
-          transparent 24px,
-          transparent 36px
-        );
+      height: 1px;
+      background: var(--border);
+      position: relative;
+    }
+    .track-line::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 5px;
+      background: var(--rust);
+      border-radius: 3px;
     }
 
     /* ============================================================
-       STEAM ANIMATION
+       STEAM ANIMATION — subtiel
        ============================================================ */
-    @keyframes steam-rise {
-      0%   { opacity: 0.7; transform: translateY(0)    scale(0.8); }
-      60%  { opacity: 0.4; transform: translateY(-30px) scale(1.4); }
-      100% { opacity: 0;   transform: translateY(-60px) scale(2.0); }
-    }
-    @keyframes steam-drift {
-      0%   { opacity: 0.6; transform: translateY(0)    translateX(0)   scale(0.7); }
-      100% { opacity: 0;   transform: translateY(-50px) translateX(20px) scale(1.8); }
+    @keyframes steam {
+      0%   { opacity: 0.5; transform: translateY(0) scale(0.9); }
+      70%  { opacity: 0.2; transform: translateY(-28px) scale(1.5); }
+      100% { opacity: 0;   transform: translateY(-48px) scale(2.2); }
     }
 
-    .steam-container {
+    .steam-wrap {
       position: absolute;
-      top: -10px;
+      top: -8px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
-      gap: 8px;
+      gap: 6px;
       pointer-events: none;
     }
-
     .steam-puff {
-      width: 18px;
-      height: 18px;
-      background: rgba(255,255,255,0.6);
+      width: 12px;
+      height: 12px;
+      background: rgba(255,255,255,0.55);
       border-radius: 50%;
-      animation: steam-rise 2s ease-out infinite;
-      filter: blur(4px);
+      filter: blur(3px);
+      animation: steam 2.4s ease-out infinite;
     }
-    .steam-puff:nth-child(2) { animation-delay: 0.6s; width: 14px; height: 14px; }
-    .steam-puff:nth-child(3) { animation-delay: 1.2s; width: 10px; height: 10px; animation-name: steam-drift; }
+    .steam-puff:nth-child(2) { animation-delay: 0.7s; width: 9px; height: 9px; }
+    .steam-puff:nth-child(3) { animation-delay: 1.4s; width: 7px; height: 7px; }
 
     /* ============================================================
        HEADER
        ============================================================ */
     .site-header {
-      background: var(--navy-dark);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
     }
 
-    .site-header .container {
+    .header-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 72px;
-      gap: 1.5rem;
+      height: 68px;
     }
 
     .logo-link {
-      flex-shrink: 0;
       display: flex;
       align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
     }
-
     .site-logo {
-      height: 52px;
+      height: 44px;
       width: auto;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
-      transition: transform var(--transition);
+      transition: transform var(--t);
     }
-    .site-logo:hover { transform: scale(1.05) rotate(-1deg); }
+    .site-logo:hover { transform: scale(1.04); }
 
     /* Nav */
     .site-nav {
       display: flex;
       align-items: center;
-      gap: 0.25rem;
+      gap: 0.125rem;
     }
 
     .site-nav a {
-      font-family: 'Bebas Neue', cursive;
-      font-size: 1.15rem;
-      letter-spacing: 0.08em;
-      color: rgba(255,255,255,0.8);
-      padding: 0.5rem 0.9rem;
+      font-family: 'Fira Sans', sans-serif;
+      font-weight: 800;
+      font-size: 0.875rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0.5rem 0.875rem;
       border-radius: var(--radius);
-      transition: color var(--transition), background var(--transition);
-      position: relative;
+      transition: color var(--t), background var(--t);
     }
-
-    .site-nav a:hover,
+    .site-nav a:hover {
+      color: var(--text);
+      background: var(--surface-warm);
+    }
     .site-nav a.active {
-      color: var(--ochre);
-      background: rgba(232, 160, 32, 0.1);
-    }
-
-    .site-nav a.active::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 20px;
-      height: 3px;
-      background: var(--ochre);
-      border-radius: 2px;
+      color: var(--rust);
+      background: var(--rust-light);
     }
 
     /* Hamburger */
     .nav-toggle {
       display: none;
       flex-direction: column;
+      justify-content: center;
       gap: 5px;
       background: none;
       border: none;
       cursor: pointer;
       padding: 0.5rem;
-      border-radius: 8px;
+      width: 36px;
+      height: 36px;
     }
     .nav-toggle span {
       display: block;
-      width: 26px;
-      height: 2.5px;
-      background: var(--white);
+      width: 22px;
+      height: 2px;
+      background: var(--text);
       border-radius: 2px;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
     }
-    .nav-toggle.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-toggle.open span:nth-child(2) { opacity: 0; }
-    .nav-toggle.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     /* ============================================================
-       MAIN CONTENT
+       MAIN
        ============================================================ */
     main { min-height: 60vh; }
+
+    /* ============================================================
+       TYPOGRAPHY HELPERS
+       ============================================================ */
+    .label {
+      display: inline-block;
+      font-family: 'Fira Sans', sans-serif;
+      font-weight: 800;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 0.75rem;
+    }
 
     /* ============================================================
        BUTTONS
@@ -237,88 +254,83 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      font-family: 'Bebas Neue', cursive;
-      font-size: 1.1rem;
-      letter-spacing: 0.08em;
-      padding: 0.75rem 1.75rem;
+      font-family: 'Fira Sans', sans-serif;
+      font-weight: 800;
+      font-size: 0.875rem;
+      letter-spacing: 0.03em;
+      padding: 0.7rem 1.5rem;
       border-radius: var(--radius);
       border: none;
       cursor: pointer;
-      transition: all var(--transition);
+      transition: all var(--t);
       text-decoration: none;
+      white-space: nowrap;
     }
 
     .btn-primary {
-      background: var(--ochre);
-      color: var(--navy-dark);
-      box-shadow: 0 4px 16px rgba(232, 160, 32, 0.35);
+      background: var(--rust);
+      color: #fff;
     }
     .btn-primary:hover {
-      background: var(--ochre-light);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(232, 160, 32, 0.45);
+      background: var(--rust-dark);
+      transform: translateY(-1px);
     }
 
     .btn-outline {
       background: transparent;
-      color: var(--white);
-      border: 2px solid var(--ochre);
+      color: var(--rust);
+      border: 1.5px solid var(--rust);
     }
     .btn-outline:hover {
-      background: var(--ochre);
-      color: var(--navy-dark);
-      transform: translateY(-2px);
+      background: var(--rust-light);
+      transform: translateY(-1px);
     }
 
-    .btn-navy {
-      background: var(--navy);
-      color: var(--white);
-      box-shadow: var(--shadow);
+    .btn-ghost {
+      background: var(--surface-warm);
+      color: var(--text);
+      border: 1px solid var(--border);
     }
-    .btn-navy:hover {
-      background: var(--navy-mid);
-      transform: translateY(-2px);
+    .btn-ghost:hover {
+      background: var(--border-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-forest {
+      background: var(--forest);
+      color: #fff;
+    }
+    .btn-forest:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
     }
 
     /* ============================================================
        CARDS
        ============================================================ */
     .card {
-      background: var(--white);
+      background: var(--surface);
       border-radius: var(--radius-lg);
-      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
       overflow: hidden;
-      transition: transform var(--transition), box-shadow var(--transition);
+      transition: transform var(--t), box-shadow var(--t), border-color var(--t);
     }
     .card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(28, 26, 23, 0.08);
+      border-color: var(--rust-mid);
     }
 
     /* ============================================================
-       SECTION HEADERS
-       ============================================================ */
-    .section-label {
-      display: inline-block;
-      font-family: 'Bebas Neue', cursive;
-      font-size: 0.9rem;
-      letter-spacing: 0.2em;
-      color: var(--ochre);
-      background: var(--navy-dark);
-      padding: 0.25rem 0.75rem;
-      border-radius: 4px;
-      margin-bottom: 0.75rem;
-    }
-
-    /* ============================================================
-       RESPONSIVE YOUTUBE EMBED
+       RESPONSIVE VIDEO EMBED
        ============================================================ */
     .video-wrapper {
       position: relative;
-      padding-bottom: 56.25%; /* 16:9 */
+      padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
       border-radius: var(--radius);
+      background: var(--surface-warm);
     }
     .video-wrapper iframe {
       position: absolute;
@@ -331,407 +343,403 @@
        FOOTER
        ============================================================ */
     .site-footer {
-      background: var(--navy-dark);
-      color: rgba(255,255,255,0.7);
-      margin-top: 4rem;
+      background: var(--text);
+      color: rgba(255,255,255,0.6);
+      margin-top: 6rem;
     }
 
     .footer-inner {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      gap: 2rem;
-      padding: 3rem 0 2rem;
+      gap: 3rem;
+      padding: 3.5rem 0 2.5rem;
     }
 
     .footer-logo {
-      height: 80px;
+      height: 72px;
       width: auto;
       margin: 0 auto;
-      filter: drop-shadow(0 2px 12px rgba(0,0,0,0.5));
+      opacity: 0.9;
     }
+
+    .footer-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-nav a {
+      font-family: 'Fira Sans', sans-serif;
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      transition: color var(--t);
+    }
+    .footer-nav a:hover { color: #fff; }
 
     .social-links {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.625rem;
+      align-items: flex-end;
     }
 
     .social-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
-      font-family: 'Bebas Neue', cursive;
-      font-size: 1rem;
-      letter-spacing: 0.1em;
-      padding: 0.6rem 1.25rem;
-      border-radius: var(--radius);
-      transition: all var(--transition);
-    }
-
-    .social-btn.yt {
-      background: #FF0000;
-      color: var(--white);
-    }
-    .social-btn.yt:hover { background: #CC0000; transform: scale(1.04); }
-
-    .social-btn.ig {
-      background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCAF45);
-      color: var(--white);
-    }
-    .social-btn.ig:hover { opacity: 0.9; transform: scale(1.04); }
-
-    .social-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
-
-    .footer-meta {
-      text-align: right;
-      font-size: 0.85rem;
-      line-height: 1.8;
-    }
-
-    .parental-notice {
+      gap: 0.5rem;
+      font-family: 'Fira Sans', sans-serif;
+      font-weight: 800;
       font-size: 0.8rem;
-      color: rgba(255,255,255,0.45);
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: 1.5rem;
-      margin-top: 1.5rem;
-      text-align: center;
+      letter-spacing: 0.06em;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      transition: all var(--t);
+      color: #fff;
     }
+    .social-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .social-btn.yt  { background: #FF0000; }
+    .social-btn.yt:hover  { background: #CC0000; transform: scale(1.03); }
+    .social-btn.ig  { background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCAF45); }
+    .social-btn.ig:hover  { opacity: 0.88; transform: scale(1.03); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom p {
+      font-size: 0.8rem;
+      margin: 0;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-bottom a { color: rgba(255,255,255,0.5); }
+    .footer-bottom a:hover { color: #fff; }
 
     /* ============================================================
        UTILITIES
        ============================================================ */
-    .text-ochre  { color: var(--ochre); }
-    .text-navy   { color: var(--navy); }
-    .text-muted  { color: var(--text-muted); }
-    .text-center { text-align: center; }
-    .text-white  { color: var(--white); }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
+    }
 
-    .bg-navy     { background: var(--navy); }
-    .bg-dark     { background: var(--navy-dark); }
-    .bg-pale     { background: var(--ochre-pale); }
-    .bg-white    { background: var(--white); }
+    .text-rust    { color: var(--rust); }
+    .text-forest  { color: var(--forest); }
+    .text-muted   { color: var(--text-muted); }
+    .text-center  { text-align: center; }
 
-    .py-sm  { padding-top: 2rem;  padding-bottom: 2rem; }
-    .py-md  { padding-top: 3.5rem; padding-bottom: 3.5rem; }
-    .py-lg  { padding-top: 5rem;  padding-bottom: 5rem; }
-
-    .mt-sm { margin-top: 1rem; }
-    .mt-md { margin-top: 2rem; }
-    .mt-lg { margin-top: 3rem; }
-    .mb-md { margin-bottom: 2rem; }
+    .section { padding: 5rem 0; }
+    .section-sm { padding: 3rem 0; }
+    .section-lg { padding: 7rem 0; }
 
     /* ============================================================
-       MOBILE RESPONSIVE
+       MOBILE
        ============================================================ */
-    @media (max-width: 768px) {
-      .site-header .container { height: 64px; }
-
+    @media (max-width: 720px) {
       .nav-toggle { display: flex; }
 
       .site-nav {
         display: none;
         position: absolute;
-        top: 100%;
+        top: 69px;
         left: 0; right: 0;
-        background: var(--navy-dark);
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
         flex-direction: column;
         align-items: stretch;
-        padding: 1rem;
-        gap: 0.25rem;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        padding: 0.75rem 1rem 1.25rem;
       }
       .site-nav.open { display: flex; }
-      .site-nav a { font-size: 1.3rem; padding: 0.75rem 1rem; }
-      .site-nav a.active::after { display: none; }
+      .site-nav a {
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+      }
 
       .footer-inner {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 2rem;
+        padding: 2.5rem 0 2rem;
       }
-      .footer-meta { text-align: center; }
       .social-links { align-items: center; }
+      .footer-bottom { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ============================================================
+  <!-- ======================================================
        HEADER
-       ============================================================ -->
+       ====================================================== -->
   <header class="site-header">
     <div class="container">
-      <a href="/" class="logo-link" aria-label="Tijmen op Stoom – Home">
-        <img src="/assets/img/logo.webp" alt="Tijmen op Stoom logo" class="site-logo">
-      </a>
+      <div class="header-inner">
+        <a href="/" class="logo-link" aria-label="Tijmen op Stoom – Home">
+          <img src="/assets/img/logo.webp" alt="Tijmen op Stoom" class="site-logo">
+        </a>
 
-      <button class="nav-toggle" aria-label="Menu openen" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
 
-      <nav class="site-nav" aria-label="Hoofdnavigatie">
-        <a href="/">Home</a>
-        <a href="/over">Over Tijmen</a>
-        <a href="/expedities">Expedities</a>
-        <a href="/contact" class="active" aria-current="page">Contact</a>
-      </nav>
+        <nav class="site-nav" aria-label="Hoofdnavigatie">
+          <a href="/">Home</a>
+          <a href="/over">Over Tijmen</a>
+          <a href="/expedities">Expedities</a>
+          <a href="/contact" class="active">Contact</a>
+        </nav>
+      </div>
     </div>
-    <div class="track-line"></div>
   </header>
 
-  <!-- ============================================================
-       MAIN CONTENT
-       ============================================================ -->
-  <main id="main-content">
+  <!-- ======================================================
+       MAIN
+       ====================================================== -->
+  <main id="main">
     <style>
   .contact-hero {
-    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
-    color: var(--white);
-    padding: 4rem 0;
-    text-align: center;
+    background: var(--surface);
+    padding: 4.5rem 0;
+    border-bottom: 1px solid var(--border);
   }
   .contact-hero h1 {
-    font-size: clamp(3rem, 7vw, 5rem);
-    color: var(--white);
-    margin-bottom: 0.5rem;
+    font-size: clamp(2.75rem, 5vw, 4rem);
+    color: var(--text);
+    margin-bottom: 0.75rem;
   }
-  .contact-hero h1 span { color: var(--ochre); }
-  .contact-hero p { color: rgba(255,255,255,0.7); max-width: 480px; margin: 0 auto; }
+  .contact-hero h1 em { font-style: normal; color: var(--rust); }
+  .contact-hero p { color: var(--text-muted); max-width: 400px; }
 
-  .contact-layout {
-    max-width: 760px;
+  .contact-body {
+    max-width: 680px;
     margin: 0 auto;
-    padding: 4rem 1.25rem;
+    padding: 4.5rem 1.5rem;
     display: grid;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .contact-card {
-    background: var(--white);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow);
-    padding: 2.5rem;
-    border-top: 5px solid var(--ochre);
+    padding: 2rem 2.25rem;
   }
 
   .contact-card h2 {
-    font-size: 2rem;
-    color: var(--navy-dark);
-    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: var(--text);
+    margin-bottom: 0.75rem;
   }
 
   .contact-card p {
-    font-size: 1rem;
     color: var(--text-muted);
+    font-size: 0.975rem;
     line-height: 1.8;
     margin-bottom: 1.25rem;
   }
 
-  .email-display {
+  .email-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    background: var(--navy-dark);
-    color: var(--ochre);
-    font-family: 'Bebas Neue', cursive;
-    font-size: 1.3rem;
-    letter-spacing: 0.08em;
-    padding: 1rem 1.75rem;
+    gap: 0.625rem;
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--rust);
+    background: var(--rust-light);
+    border: 1px solid rgba(200,81,26,0.2);
+    padding: 0.875rem 1.5rem;
     border-radius: var(--radius);
-    transition: all var(--transition);
-    text-decoration: none;
+    transition: all var(--t);
   }
-  .email-display:hover {
-    background: var(--navy-mid);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
+  .email-link:hover {
+    background: var(--rust);
+    color: #fff;
+    transform: translateY(-1px);
   }
-  .email-display svg { flex-shrink: 0; }
 
-  .contact-rules {
-    background: var(--ochre-pale);
-    border-radius: var(--radius-lg);
-    border: 2px solid var(--ochre-light);
-    padding: 2rem 2.5rem;
+  .response-note {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    font-weight: 500;
   }
-  .contact-rules h2 {
-    font-size: 1.8rem;
-    color: var(--navy-dark);
-    margin-bottom: 1rem;
-  }
-  .contact-rules ul {
+
+  .scope-list {
     list-style: none;
     padding: 0;
     display: grid;
-    gap: 0.6rem;
+    gap: 0.5rem;
+    margin-bottom: 0;
   }
-  .contact-rules li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
-    font-size: 0.95rem;
-    color: var(--navy);
-    font-weight: 600;
-  }
-  .contact-rules li::before {
-    content: '✓';
-    color: var(--ochre);
-    font-weight: 900;
-    flex-shrink: 0;
-    margin-top: 0.1rem;
-  }
-
-  .response-time {
+  .scope-list li {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    background: var(--navy-dark);
-    color: rgba(255,255,255,0.85);
-    padding: 1rem 1.5rem;
-    border-radius: var(--radius);
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
-    font-weight: 600;
+    gap: 0.625rem;
+    font-size: 0.925rem;
+    color: var(--text-muted);
   }
-  .response-time .icon { font-size: 1.25rem; flex-shrink: 0; }
-
-  .parental-box {
-    background: var(--off-white);
-    border-radius: var(--radius-lg);
-    border: 2px dashed var(--ochre);
-    padding: 2rem;
-    text-align: center;
+  .scope-list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--rust);
+    border-radius: 50%;
+    flex-shrink: 0;
   }
-  .parental-box .big-icon { font-size: 2.5rem; display: block; margin-bottom: 0.75rem; }
-  .parental-box p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin: 0; }
-  .parental-box strong { color: var(--navy-dark); }
 
-  .social-contact-grid {
+  .social-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 1.5rem;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
   }
 
-  .social-contact-btn {
+  .social-btn-lg {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem;
-    padding: 1rem;
+    gap: 0.5rem;
+    padding: 0.875rem;
     border-radius: var(--radius);
-    font-family: 'Bebas Neue', cursive;
-    font-size: 1.1rem;
-    letter-spacing: 0.06em;
-    transition: all var(--transition);
-    color: white;
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 800;
+    font-size: 0.875rem;
+    color: #fff;
+    transition: all var(--t);
   }
-  .social-contact-btn.yt { background: #FF0000; }
-  .social-contact-btn.yt:hover { background: #CC0000; transform: translateY(-2px); }
-  .social-contact-btn.ig { background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCAF45); }
-  .social-contact-btn.ig:hover { opacity: 0.9; transform: translateY(-2px); }
-  .social-contact-btn svg { width: 20px; height: 20px; }
+  .social-btn-lg.yt { background: #FF0000; }
+  .social-btn-lg.yt:hover { background: #CC0000; transform: translateY(-1px); }
+  .social-btn-lg.ig { background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCAF45); }
+  .social-btn-lg.ig:hover { opacity: 0.88; transform: translateY(-1px); }
+  .social-btn-lg svg { width: 18px; height: 18px; }
+
+  .parental-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 2.25rem;
+    text-align: center;
+  }
+  .parental-card p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.75;
+  }
 
   @media (max-width: 500px) {
-    .social-contact-grid { grid-template-columns: 1fr; }
+    .social-grid { grid-template-columns: 1fr; }
     .contact-card { padding: 1.5rem; }
   }
 </style>
 
 <section class="contact-hero">
   <div class="container">
-    <h1>Get in <span>Touch</span></h1>
-    <p>Zakelijke vragen, samenwerkingen of gewoon hoi zeggen? Wij horen graag van je!</p>
+    <span class="label">Neem contact op</span>
+    <h1>Zakelijke <em>aanvragen</em></h1>
+    <p>Samenwerkingen, sponsoring of media-aanvragen? Wij horen graag van je.</p>
   </div>
 </section>
-<div class="track-line"></div>
 
-<div class="contact-layout">
+<div class="container">
+  <div class="contact-body">
 
-  <!-- E-mail -->
-  <div class="contact-card">
-    <h2>📧 Zakelijke Aanvragen</h2>
-    <p>
-      Voor samenwerkingen, sponsoring, evenementen of media-aanvragen kun je ons bereiken via e-mail.
-      Alle berichten worden gelezen en beantwoord door de ouders van Tijmen.
-    </p>
-    <a href="mailto:info@tijmenopstoom.nl" class="email-display">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-      </svg>
-      info@tijmenopstoom.nl
-    </a>
-    <div class="response-time">
-      <span class="icon">⏱️</span>
-      We proberen binnen 3–5 werkdagen te reageren.
-    </div>
-  </div>
-
-  <!-- Waar we wel/niet voor zijn -->
-  <div class="contact-rules">
-    <h2>💼 Wat we doen</h2>
-    <ul>
-      <li>Samenwerkingen met trein- en reisgerelateerde merken</li>
-      <li>Product reviews van treingerelateerde items (boeken, modelbouw, merch)</li>
-      <li>Gastbijdragen of vermeldingen op family-friendly platformen</li>
-      <li>Evenementen en persevenementen rondom treinen en spoor</li>
-      <li>Media-aanvragen en interviews</li>
-    </ul>
-  </div>
-
-  <!-- Sociale media -->
-  <div class="contact-card">
-    <h2>📱 Sociale Media</h2>
-    <p>
-      Voor snelle berichtjes en reacties ben je ook welkom op onze sociale kanalen.
-      Stuur een DM op Instagram of reageer op een video — Tijmen's ouders lezen alles!
-    </p>
-    <div class="social-contact-grid">
-      <a href="https://www.youtube.com/@TijmenopStoom" target="_blank" rel="noopener" class="social-contact-btn yt">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg>
-        YouTube
+    <div class="contact-card">
+      <h2>📧 E-mail</h2>
+      <p>
+        Voor zakelijke vragen kun je ons bereiken via e-mail. Alle berichten worden
+        gelezen en beantwoord door de ouders van Tijmen.
+      </p>
+      <a href="mailto:info@tijmenopstoom.nl" class="email-link">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+        </svg>
+        info@tijmenopstoom.nl
       </a>
-      <a href="https://www.instagram.com/TijmenOpStoom" target="_blank" rel="noopener" class="social-contact-btn ig">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" /></svg>
-        Instagram
-      </a>
+      <p class="response-note">
+        <span>⏱</span> We reageren binnen 3–5 werkdagen.
+      </p>
     </div>
-  </div>
 
-  <!-- Parental notice -->
-  <div class="parental-box">
-    <span class="big-icon">👨‍👩‍👦</span>
-    <p>
-      <strong>Opmerking voor ouders &amp; verzorgers:</strong><br />
-      Tijmen is 8 jaar oud. Dit platform — inclusief alle sociale media — wordt volledig beheerd
-      door zijn ouders. Alle communicatie verloopt via de ouders. Tijmen beantwoordt zelf geen
-      berichten van onbekenden.
-    </p>
-  </div>
+    <div class="contact-card">
+      <h2>💼 Wat we doen</h2>
+      <ul class="scope-list">
+        <li>Samenwerkingen met trein- en reisgerelateerde merken</li>
+        <li>Product reviews van treingerelateerde items</li>
+        <li>Gastbijdragen op family-friendly platforms</li>
+        <li>Evenementen en persevents rondom treinen en spoor</li>
+        <li>Media-aanvragen en interviews</li>
+      </ul>
+    </div>
 
+    <div class="contact-card">
+      <h2>📱 Sociale media</h2>
+      <p>
+        Voor snelle berichten ben je ook welkom op onze sociale kanalen.
+        Stuur een DM op Instagram of reageer op een video.
+      </p>
+      <div class="social-grid">
+        <a href="https://www.youtube.com/@TijmenopStoom" target="_blank" rel="noopener" class="social-btn-lg yt">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg>
+          @TijmenopStoom
+        </a>
+        <a href="https://www.instagram.com/TijmenOpStoom" target="_blank" rel="noopener" class="social-btn-lg ig">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" /></svg>
+          @TijmenOpStoom
+        </a>
+      </div>
+    </div>
+
+    <div class="parental-card">
+      <p>
+        👨‍👩‍👦 <strong>Tijmen is 8 jaar oud.</strong> Dit platform wordt volledig beheerd door zijn ouders.
+        Alle communicatie verloopt via de ouders. Tijmen beantwoordt zelf geen berichten van onbekenden.
+      </p>
+    </div>
+
+  </div>
 </div>
 
   </main>
 
-  <!-- ============================================================
+  <!-- ======================================================
        FOOTER
-       ============================================================ -->
+       ====================================================== -->
   <footer class="site-footer">
-    <div class="track-line"></div>
     <div class="container">
       <div class="footer-inner">
 
+        <nav class="footer-nav" aria-label="Footer navigatie">
+          <a href="/">Home</a>
+          <a href="/over">Over Tijmen</a>
+          <a href="/expedities">Expedities</a>
+          <a href="/contact">Contact</a>
+        </nav>
+
+        <img src="/assets/img/logo.webp" alt="Tijmen op Stoom" class="footer-logo">
+
         <div class="social-links">
-          <!-- YouTube -->
-          <a href="https://www.youtube.com/@TijmenopStoom" target="_blank" rel="noopener noreferrer" class="social-btn yt">
+          <a href="https://www.youtube.com/@TijmenopStoom" target="_blank" rel="noopener" class="social-btn yt">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
             </svg>
             YouTube
           </a>
-          <!-- Instagram -->
-          <a href="https://www.instagram.com/TijmenOpStoom" target="_blank" rel="noopener noreferrer" class="social-btn ig">
+          <a href="https://www.instagram.com/TijmenOpStoom" target="_blank" rel="noopener" class="social-btn ig">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
             </svg>
@@ -739,44 +747,28 @@
           </a>
         </div>
 
-        <img src="/assets/img/logo.webp" alt="Tijmen op Stoom" class="footer-logo">
-
-        <div class="footer-meta">
-          <p style="color: rgba(255,255,255,0.6); font-size:0.9rem; margin-bottom:0.5rem;">
-            Junior treinspotter<br>op avontuur langs de rails
-          </p>
-          <p style="color: rgba(255,255,255,0.35); font-size:0.8rem;">
-            &copy; 2026 Tijmen op Stoom
-          </p>
-        </div>
-
       </div>
 
-      <p class="parental-notice">
-        Dit platform wordt beheerd door de ouders van Tijmen. &nbsp;|&nbsp;
-        <a href="/contact" style="color:var(--ochre);">Contact &amp; zakelijke aanvragen</a>
-      </p>
+      <div class="footer-bottom">
+        <p>Dit platform wordt beheerd door de ouders van Tijmen.</p>
+        <p>&copy; 2026 Tijmen op Stoom &nbsp;·&nbsp; <a href="/contact">Contact</a></p>
+      </div>
     </div>
   </footer>
 
   <script>
-    // Mobile nav toggle
     const toggle = document.querySelector('.nav-toggle');
     const nav    = document.querySelector('.site-nav');
     toggle.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('open');
-      toggle.classList.toggle('open', isOpen);
-      toggle.setAttribute('aria-expanded', isOpen);
+      const open = nav.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open);
     });
-
-    // Close nav on link click (mobile)
-    nav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('open');
-        toggle.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-      });
-    });
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      nav.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }));
   </script>
 
 </body>

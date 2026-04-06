@@ -6,153 +6,152 @@ permalink: /expedities/
 ---
 
 <style>
-  .expedities-hero {
-    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
-    color: var(--white);
-    padding: 4rem 0;
-    text-align: center;
+  .exp-list-hero {
+    background: var(--surface);
+    padding: 4.5rem 0;
+    border-bottom: 1px solid var(--border);
   }
-  .expedities-hero h1 {
-    font-size: clamp(3rem, 8vw, 6rem);
-    color: var(--white);
-    margin-bottom: 0.5rem;
+  .exp-list-hero h1 {
+    font-size: clamp(2.75rem, 5vw, 4.5rem);
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    line-height: 1.05;
   }
-  .expedities-hero h1 span { color: var(--ochre); }
-  .expedities-hero p { color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto; font-size: 1.05rem; }
+  .exp-list-hero h1 em { font-style: normal; color: var(--rust); }
+  .exp-list-hero p { color: var(--text-muted); max-width: 420px; }
 
-  .expedities-list {
-    max-width: var(--max-width);
+  .exp-list-body {
+    max-width: 720px;
     margin: 0 auto;
-    padding: 4rem 1.25rem;
+    padding: 4rem 1.5rem 5rem;
   }
 
-  .expedities-count {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 1.1rem;
-    color: var(--text-muted);
+  .exp-count {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 800;
+    font-size: 0.78rem;
     letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
     margin-bottom: 2rem;
   }
-  .expedities-count span { color: var(--ochre); }
+  .exp-count span { color: var(--rust); }
 
-  .expedition-list-item {
+  .exp-list-item {
     display: grid;
-    grid-template-columns: 80px 1fr auto;
-    gap: 1.5rem;
+    grid-template-columns: 64px 1fr 28px;
+    gap: 1.25rem;
     align-items: center;
-    background: var(--white);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow);
-    padding: 1.5rem;
-    margin-bottom: 1.25rem;
-    transition: transform var(--transition), box-shadow var(--transition);
+    padding: 1.375rem 1.5rem;
+    margin-bottom: 0.875rem;
     text-decoration: none;
     color: inherit;
-    border-left: 5px solid var(--ochre);
+    transition: border-color var(--t), transform var(--t), box-shadow var(--t);
   }
-  .expedition-list-item:hover {
-    transform: translateX(4px);
-    box-shadow: var(--shadow-lg);
+  .exp-list-item:hover {
+    border-color: var(--rust-mid);
+    transform: translateX(3px);
+    box-shadow: 0 4px 20px rgba(28,26,23,0.06);
   }
 
-  .exp-number {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 3rem;
-    color: var(--ochre);
+  .exp-list-num {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    color: var(--rust-mid);
     line-height: 1;
     text-align: center;
   }
 
-  .exp-info {}
-  .exp-title {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 1.6rem;
-    color: var(--navy-dark);
+  .exp-list-info {}
+  .exp-list-title {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--text);
     margin-bottom: 0.25rem;
-    line-height: 1.2;
+    line-height: 1.25;
   }
-  .exp-meta {
-    font-size: 0.85rem;
+  .exp-list-meta {
+    font-size: 0.8rem;
     color: var(--text-muted);
-    font-weight: 600;
     display: flex;
-    gap: 1rem;
+    gap: 0.875rem;
     flex-wrap: wrap;
+    font-weight: 500;
   }
-  .exp-meta span { display: flex; align-items: center; gap: 0.25rem; }
-
-  .exp-excerpt {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    margin-top: 0.5rem;
+  .exp-list-excerpt {
+    font-size: 0.875rem;
+    color: var(--text-subtle);
+    margin-top: 0.3rem;
     line-height: 1.6;
   }
 
-  .exp-arrow {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 1.5rem;
-    color: var(--ochre);
-    flex-shrink: 0;
+  .exp-list-arrow {
+    color: var(--border);
+    font-size: 1.125rem;
+    transition: color var(--t);
   }
+  .exp-list-item:hover .exp-list-arrow { color: var(--rust); }
 
   .empty-state {
     text-align: center;
-    padding: 4rem 1rem;
-    color: var(--text-muted);
+    padding: 5rem 1rem;
   }
-  .empty-state .big { font-size: 4rem; display: block; margin-bottom: 1rem; }
-  .empty-state h2 { font-size: 2rem; color: var(--navy-dark); margin-bottom: 0.5rem; }
+  .empty-state .icon { font-size: 3.5rem; display: block; margin-bottom: 1rem; }
+  .empty-state h2 { font-size: 2rem; color: var(--text); margin-bottom: 0.5rem; }
+  .empty-state p { color: var(--text-muted); margin-bottom: 1.5rem; }
 
-  @media (max-width: 600px) {
-    .expedition-list-item { grid-template-columns: 56px 1fr; }
-    .exp-arrow { display: none; }
-    .exp-number { font-size: 2.2rem; }
+  @media (max-width: 480px) {
+    .exp-list-item { grid-template-columns: 44px 1fr; }
+    .exp-list-arrow { display: none; }
+    .exp-list-num { font-size: 1.6rem; }
   }
 </style>
 
-<section class="expedities-hero">
+<section class="exp-list-hero">
   <div class="container">
-    <h1>Mijn <span>Expedities</span></h1>
+    <span class="label">Mijn avonturen</span>
+    <h1>Alle <em>expedities</em></h1>
     <p>Elk avontuur, elke reis, elke stoomwolk — hier bijgehouden voor altijd.</p>
   </div>
 </section>
-<div class="track-line"></div>
 
-<div class="expedities-list">
+<div class="container">
+  <div class="exp-list-body">
 
-  {% if site.expedities.size > 0 %}
-  <p class="expedities-count">
-    <span>{{ site.expedities.size }}</span> expedities gevonden
-  </p>
+    {% if site.expedities.size > 0 %}
+    <p class="exp-count"><span>{{ site.expedities.size }}</span> expedities</p>
 
-  {% assign sorted = site.expedities | sort: 'date' | reverse %}
-  {% for expeditie in sorted %}
-  <a href="{{ expeditie.url | relative_url }}" class="expedition-list-item">
-    <div class="exp-number">{{ expeditie.nummer | default: forloop.index }}</div>
-    <div class="exp-info">
-      <div class="exp-title">{{ expeditie.title }}</div>
-      <div class="exp-meta">
-        <span>📅 {{ expeditie.date | date: "%-d %B %Y" }}</span>
-        {% if expeditie.locatie %}<span>📍 {{ expeditie.locatie }}</span>{% endif %}
-        {% if expeditie.tags %}<span>🏷️ {{ expeditie.tags | join: ', ' }}</span>{% endif %}
+    {% assign sorted = site.expedities | sort: 'date' | reverse %}
+    {% for exp in sorted %}
+    <a href="{{ exp.url | relative_url }}" class="exp-list-item">
+      <div class="exp-list-num">{{ exp.nummer | default: forloop.index }}</div>
+      <div class="exp-list-info">
+        <div class="exp-list-title">{{ exp.title }}</div>
+        <div class="exp-list-meta">
+          <span>{{ exp.date | date: "%-d %B %Y" }}</span>
+          {% if exp.locatie %}<span>{{ exp.locatie }}</span>{% endif %}
+        </div>
+        {% if exp.excerpt %}
+        <div class="exp-list-excerpt">{{ exp.excerpt | strip_html | truncate: 110 }}</div>
+        {% endif %}
       </div>
-      {% if expeditie.excerpt %}
-      <p class="exp-excerpt">{{ expeditie.excerpt | strip_html | truncate: 120 }}</p>
-      {% endif %}
-    </div>
-    <div class="exp-arrow">→</div>
-  </a>
-  {% endfor %}
-
-  {% else %}
-  <div class="empty-state">
-    <span class="big">🚂</span>
-    <h2>Binnenkort hier!</h2>
-    <p>De eerste expeditie-verslagen zijn onderweg. Abonneer op YouTube om niets te missen!</p>
-    <a href="{{ site.social.youtube }}" target="_blank" rel="noopener" class="btn btn-primary mt-md">
-      ▶ Volg op YouTube
+      <span class="exp-list-arrow">→</span>
     </a>
-  </div>
-  {% endif %}
+    {% endfor %}
 
+    {% else %}
+    <div class="empty-state">
+      <span class="icon">🚂</span>
+      <h2>Binnenkort hier!</h2>
+      <p>De eerste expeditie-verslagen zijn onderweg.</p>
+      <a href="{{ site.social.youtube }}" target="_blank" rel="noopener" class="btn btn-primary">▶ Volg op YouTube</a>
+    </div>
+    {% endif %}
+
+  </div>
 </div>

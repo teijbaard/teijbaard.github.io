@@ -4,225 +4,193 @@ layout: default
 
 <style>
   /* ============================================================
-     EXPEDITIE LAYOUT — Timeline & Journey styles
+     EXPEDITIE LAYOUT
      ============================================================ */
-
-  .expeditie-hero {
-    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
-    color: var(--white);
-    padding: 4rem 0 3rem;
-    position: relative;
-    overflow: hidden;
+  .exp-hero {
+    background: var(--text);
+    color: #fff;
+    padding: 4rem 0 3.5rem;
   }
 
-  .expeditie-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 80% 50%, rgba(232,160,32,0.08) 0%, transparent 60%),
-      repeating-linear-gradient(
-        90deg,
-        transparent 0px,
-        transparent 60px,
-        rgba(255,255,255,0.02) 60px,
-        rgba(255,255,255,0.02) 61px
-      );
-    pointer-events: none;
-  }
-
-  .expeditie-hero .container { position: relative; }
-
-  .expeditie-number {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 8rem;
-    line-height: 1;
-    color: rgba(232,160,32,0.15);
-    position: absolute;
-    right: 1.25rem;
-    top: -1rem;
-    user-select: none;
-    pointer-events: none;
-  }
-
-  .expeditie-breadcrumb {
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 1.5rem;
+  .exp-breadcrumb {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .expeditie-breadcrumb a { color: var(--ochre); }
-  .expeditie-breadcrumb a:hover { text-decoration: underline; }
-
-  .expeditie-title {
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    color: var(--white);
-    margin-bottom: 1rem;
-  }
-  .expeditie-title span { color: var(--ochre); }
-
-  .expeditie-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-
-  .meta-badge {
-    display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.15);
-    color: rgba(255,255,255,0.85);
-    font-size: 0.85rem;
-    font-weight: 700;
-    padding: 0.35rem 0.85rem;
-    border-radius: 100px;
+    margin-bottom: 1.75rem;
+    font-weight: 500;
   }
-  .meta-badge.highlight {
-    background: rgba(232,160,32,0.2);
-    border-color: var(--ochre);
-    color: var(--ochre-light);
+  .exp-breadcrumb a { color: var(--rust-mid); transition: color var(--t); }
+  .exp-breadcrumb a:hover { color: #fff; }
+
+  .exp-hero h1 {
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    color: #fff;
+    margin-bottom: 1.25rem;
+    line-height: 1.05;
+  }
+  .exp-hero h1 span { color: var(--rust-mid); }
+
+  .exp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .exp-tag {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 800;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.7);
+  }
+  .exp-tag.accent {
+    background: rgba(200, 81, 26, 0.2);
+    border-color: var(--rust-mid);
+    color: #f5a07a;
   }
 
   /* ============================================================
      TIMELINE
      ============================================================ */
   .timeline-section {
-    padding: 4rem 0;
+    padding: 4.5rem 0 5rem;
   }
 
-  .timeline {
-    position: relative;
-    max-width: 720px;
+  .timeline-wrap {
+    max-width: 680px;
     margin: 0 auto;
+    position: relative;
   }
 
-  /* Vertical track rail */
-  .timeline::before {
+  /* vertical rail */
+  .timeline-wrap::before {
     content: '';
     position: absolute;
-    left: 28px;
-    top: 0; bottom: 0;
-    width: 4px;
-    background: linear-gradient(to bottom, var(--ochre), var(--navy));
+    left: 20px;
+    top: 8px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--rust), var(--border));
     border-radius: 2px;
   }
 
   .timeline-day {
     position: relative;
-    padding-left: 72px;
+    padding-left: 60px;
     margin-bottom: 3rem;
   }
 
-  /* Train station dot */
+  /* Station dot */
   .timeline-day::before {
     content: '';
     position: absolute;
-    left: 18px;
-    top: 8px;
-    width: 24px;
-    height: 24px;
-    background: var(--ochre);
-    border: 4px solid var(--navy-dark);
+    left: 12px;
+    top: 10px;
+    width: 18px;
+    height: 18px;
+    background: var(--surface);
+    border: 3px solid var(--rust);
     border-radius: 50%;
-    box-shadow: 0 0 0 3px rgba(232,160,32,0.3);
     z-index: 1;
   }
 
   .day-label {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 1.5rem;
-    color: var(--ochre);
-    letter-spacing: 0.1em;
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 800;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.35rem;
   }
 
-  .day-subtitle {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 1.75rem;
-    color: var(--navy-dark);
+  .day-heading {
+    font-size: 1.6rem;
+    color: var(--text);
     margin-bottom: 1rem;
   }
 
-  .day-content {
-    background: var(--white);
+  .day-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 1.5rem;
-    box-shadow: var(--shadow);
-    border-left: 4px solid var(--ochre);
-    font-size: 1rem;
+  }
+
+  .day-card p {
+    color: var(--text-muted);
+    font-size: 0.975rem;
     line-height: 1.8;
   }
 
   .highlight-box {
-    background: var(--ochre-pale);
-    border: 2px solid var(--ochre-light);
+    background: var(--rust-light);
+    border: 1px solid rgba(200, 81, 26, 0.2);
+    border-left: 3px solid var(--rust);
     border-radius: var(--radius);
     padding: 1rem 1.25rem;
     margin: 1rem 0;
-    font-weight: 700;
-    color: var(--navy-dark);
     display: flex;
-    align-items: flex-start;
     gap: 0.75rem;
+    align-items: flex-start;
+    font-size: 0.95rem;
   }
+  .highlight-box .icon { font-size: 1.25rem; flex-shrink: 0; line-height: 1.4; }
+  .highlight-box p { color: var(--text); margin: 0; }
+  .highlight-box strong { color: var(--rust-dark); }
 
-  .highlight-box .icon {
-    font-size: 1.5rem;
-    flex-shrink: 0;
-    line-height: 1;
+  .tip-box {
+    background: var(--forest-light);
+    border: 1px solid rgba(58, 107, 78, 0.2);
+    border-left: 3px solid var(--forest);
+    border-radius: var(--radius);
+    padding: 0.875rem 1.125rem;
+    margin: 1rem 0;
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
   }
+  .tip-box .icon { font-size: 1.1rem; flex-shrink: 0; line-height: 1.5; }
+  .tip-box strong { color: var(--forest); }
 
-  /* ============================================================
-     CONTENT ARTICLE (fallback for non-timeline posts)
-     ============================================================ */
-  .expeditie-body {
-    background: var(--white);
+  /* Video teaser */
+  .video-teaser {
+    background: var(--bg);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 2.5rem;
-    box-shadow: var(--shadow);
-    max-width: 720px;
-    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    margin: 2.5rem 0;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .video-teaser h3 { font-size: 1.5rem; color: var(--text); margin-bottom: 0.5rem; }
+  .video-teaser p  { color: var(--text-muted); margin-bottom: 1.25rem; font-size: 0.95rem; }
+
+  /* Pagination */
+  .exp-nav {
+    max-width: 680px;
+    margin: 3rem auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
   }
 
-  .expeditie-body h2 {
-    font-size: 2rem;
-    color: var(--navy-dark);
-    margin: 2rem 0 0.75rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 3px solid var(--ochre);
-    display: inline-block;
-  }
-
-  .expeditie-body h3 {
-    font-size: 1.5rem;
-    color: var(--navy);
-    margin: 1.5rem 0 0.5rem;
-  }
-
-  .expeditie-body ul, .expeditie-body ol {
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .expeditie-body li { margin-bottom: 0.4rem; }
-
-  /* ============================================================
-     RESPONSIVE
-     ============================================================ */
-  @media (max-width: 640px) {
-    .expeditie-number { display: none; }
-    .timeline::before { left: 16px; }
-    .timeline-day { padding-left: 52px; }
-    .timeline-day::before { left: 6px; width: 20px; height: 20px; }
-    .expeditie-body { padding: 1.5rem; }
+  @media (max-width: 600px) {
+    .timeline-wrap::before { left: 12px; }
+    .timeline-day { padding-left: 44px; }
+    .timeline-day::before { left: 4px; width: 16px; height: 16px; }
   }
 </style>
 
