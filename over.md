@@ -127,6 +127,43 @@ description: "Leer Tijmen kennen: 8 jaar oud, junior treinspotter en expert op h
   }
   .facts-list li .fi { font-size: 1.15rem; flex-shrink: 0; }
 
+  /* Moment card */
+  .moment-card {
+    background: var(--rust-light);
+    border: 1px solid var(--rust-mid);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 2rem 0;
+  }
+  .moment-card-img {
+    width: 100%;
+    max-height: 380px;
+    object-fit: cover;
+    display: block;
+  }
+  .moment-card-body {
+    padding: 1.75rem 2rem;
+  }
+  .moment-card-body .label {
+    margin-bottom: 0.75rem;
+  }
+  .moment-card-body h3 {
+    font-size: 1.35rem;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+  .moment-card-body p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+  .moment-card-credits {
+    font-size: 0.78rem;
+    color: var(--text-subtle);
+    margin-top: 0.75rem !important;
+    font-style: italic;
+  }
+
   /* Parental notice */
   .parental-notice-box {
     background: var(--bg);
@@ -147,6 +184,7 @@ description: "Leer Tijmen kennen: 8 jaar oud, junior treinspotter en expert op h
     .over-hero-inner { grid-template-columns: 1fr; }
     .over-hero-logo  { height: 100px; margin: 0 auto; }
     .over-body       { padding: 3rem 0; }
+    .moment-card-body { padding: 1.25rem 1.5rem; }
   }
 </style>
 
@@ -168,13 +206,17 @@ description: "Leer Tijmen kennen: 8 jaar oud, junior treinspotter en expert op h
 
     <h2>Hoe het begon</h2>
     <p>
-      Toen Tijmen drie jaar oud was, stopten zijn ouders voor het eerst bij een spoorovergang.
-      Een lange goederentrein denderde voorbij — wagon na wagon, het geluid leek nooit te stoppen.
+      Toen Tijmen drie jaar oud was, stopten zijn ouders voor het eerst op het <a href="https://nl.wikipedia.org/wiki/Voetgangersbrug_Baarn" target="_blank" rel="noopener" style="color:var(--rust);">kippenbruggetje in Baarn</a> —
+      een historische voetgangersbrug uit 1911, pal naast het spoor. De IC naar Berlijn
+      denderde voorbij, en achter het raam van de locomotief flitste het nummer voorbij: <strong>1700</strong>.
       Tijmen stond met open mond en dacht: <em>dat wil ik ook filmen</em>.
+      De 1700 werd direct zijn absolute favoriet.
     </p>
     <p>
-      Sindsdien is er geen weekend voorbijgegaan zonder een treinspot. Van het perron in Utrecht
-      Centraal tot de dampende rails van museumspoorwegen — Tijmen staat overal.
+      Elk weekend waren we te vinden op het kippenbruggetje. En al snel wilde Tijmen niet alleen
+      kijken — hij wilde mee. Steeds vaker stapten hij en zijn vader samen op de trein voor een
+      echte expeditie. Amsterdam Centraal werd zijn favoriete station: groot, druk en altijd
+      iets te spotten. En het <strong>Spoorwegmuseum</strong> in Utrecht? Dat is voor Tijmen gewoon een tweede thuis.
     </p>
 
     <div class="quote-block">
@@ -184,14 +226,45 @@ description: "Leer Tijmen kennen: 8 jaar oud, junior treinspotter en expert op h
       <cite>— Tijmen, 8 jaar</cite>
     </div>
 
+    <h2>Een bijzondere dag: 150 jaar Oosterspoorweg</h2>
+
+    <div class="moment-card">
+      <img
+        src="{{ '/assets/img/tijmen_150_oosterspoorweg.webp' | relative_url }}"
+        alt="Tijmen deelt kinderboek uit op station Baarn tijdens 150 jaar Oosterspoorweg"
+        class="moment-card-img"
+        loading="lazy">
+      <div class="moment-card-body">
+        <span class="label">8 juni 2024 · Station Baarn</span>
+        <h3>Namens de NS een kinderboek uitdelen</h3>
+        <p>
+          Op 8 juni 2024 vierde de Oosterspoorweg zijn 150-jarig bestaan. De spoorlijn die
+          al anderhalve eeuw door Baarn loopt — en waar Tijmen wekelijks op het kippenbruggetje stond —
+          was ineens het middelpunt van een groot feest.
+        </p>
+        <p>
+          Tijmen mocht die dag namens de NS op station Baarn een speciaal kinderboek uitdelen
+          aan alle kinderen die langskwamen. Voor een jongen die altijd vol bewondering naar de treinen
+          stond te kijken, was dit een onvergetelijk moment: nu stond hij zelf op het perron, als
+          onderdeel van het feest.
+        </p>
+        <p class="moment-card-credits">Foto: Caspar Huurdeman</p>
+      </div>
+    </div>
+
     <h2>Mijn favoriete treinen</h2>
-    <p>Er zijn veel treinen, maar deze drie zijn mijn absolute favorieten:</p>
+    <p>Er zijn veel treinen, maar deze zijn mijn absolute favorieten:</p>
 
     <div class="treinen-grid">
       <div class="trein-card">
         <span class="trein-icon">🟡</span>
         <div class="trein-name">NS 1607</div>
         <p>De iconische gele elektrische locomotief van NS. Tijmen vindt hem de mooiste loc van Nederland.</p>
+      </div>
+      <div class="trein-card">
+        <span class="trein-icon">🚂</span>
+        <div class="trein-name">Loc 1700</div>
+        <p>De locomotief van de IC Berlijn. Het was de eerste trein die Tijmen ooit zag — en meteen zijn favoriet.</p>
       </div>
       <div class="trein-card">
         <span class="trein-icon">💨</span>
@@ -209,6 +282,8 @@ description: "Leer Tijmen kennen: 8 jaar oud, junior treinspotter en expert op h
     <ul class="facts-list">
       <li><span class="fi">🎂</span> 8 jaar oud en al meer gereisd dan de meeste volwassenen</li>
       <li><span class="fi">📷</span> Filmt zelf zijn video's (met een beetje hulp van papa)</li>
+      <li><span class="fi">🚉</span> Amsterdam Centraal is zijn favoriete station</li>
+      <li><span class="fi">🏛️</span> Komt graag in het Spoorwegmuseum in Utrecht</li>
       <li><span class="fi">🇩🇪</span> Heeft al treinen gespot in Nederland, Duitsland en België</li>
       <li><span class="fi">📚</span> Weet het complete NS-locomotief-assortiment uit zijn hoofd</li>
       <li><span class="fi">🌙</span> Droomt letterlijk van treinen</li>
