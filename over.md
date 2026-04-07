@@ -231,22 +231,30 @@ description: "Leer Tijmen kennen: 8 jaar oud, junior treinspotter en expert op h
     <div class="moment-card">
       <img
         src="{{ '/assets/img/tijmen_150_oosterspoorweg.webp' | relative_url }}"
-        alt="Tijmen deelt kinderboek uit op station Baarn tijdens 150 jaar Oosterspoorweg"
+        alt="Tijmen op station Baarn tijdens de viering van 150 jaar Oosterspoorweg, 8 juni 2024"
         class="moment-card-img"
         loading="lazy">
       <div class="moment-card-body">
         <span class="label">8 juni 2024 · Station Baarn</span>
-        <h3>Namens de NS een kinderboek uitdelen</h3>
+        <h3>Op het podium bij 150 jaar Oosterspoorweg</h3>
         <p>
-          Op 8 juni 2024 vierde de Oosterspoorweg zijn 150-jarig bestaan. De spoorlijn die
-          al anderhalve eeuw door Baarn loopt — en waar Tijmen wekelijks op het kippenbruggetje stond —
-          was ineens het middelpunt van een groot feest.
+          Op 8 juni 2024 vierde de Oosterspoorweg zijn 150-jarig bestaan. De spoorlijn van Amsterdam
+          via Baarn naar Amersfoort bestaat al sinds 1874 — en het stationsgebouw in Baarn is het enige
+          originele stationsgebouw uit dat jaar dat nog gewoon als station in gebruik is.
         </p>
         <p>
-          Tijmen mocht die dag namens de NS op station Baarn een speciaal kinderboek uitdelen
-          aan alle kinderen die langskwamen. Voor een jongen die altijd vol bewondering naar de treinen
-          stond te kijken, was dit een onvergetelijk moment: nu stond hij zelf op het perron, als
-          onderdeel van het feest.
+          De feestelijkheden speelden zich voornamelijk af in Baarn. Vier treinen stonden
+          opgesteld op spoor 1, en de VSM 23076 — Tijmens favoriete stoomlocomotief — reed
+          af en toe langs, ook onder het kippenbruggetje. Medewerkers liepen in kleding uit
+          oude tijden over de perrons.
+        </p>
+        <p>
+          NS-regiodirecteur Irma Winkenius had een bijzonder cadeautje meegebracht voor de
+          kinderen: het boek <em>"Was het fijn in de trein?"</em> van de Baarnse schrijfster
+          Thera Coppens. Tijmen mocht samen met kinderburgemeester Philippine Rotteveel
+          als een van de eersten het boek in ontvangst nemen — op het podium, voor alle
+          aanwezigen. Voor een jongen die elke week op het kippenbruggetje stond, was dit
+          een onvergetelijk moment.
         </p>
         <p class="moment-card-credits">Foto: Caspar Huurdeman</p>
       </div>
