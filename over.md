@@ -230,7 +230,7 @@ description: "Leer Tijmen kennen: 8 jaar oud, junior treinspotter en expert op h
     <div class="parental-notice-box">
       <p>
         👨‍👩‍👦 Dit platform wordt beheerd door de ouders van Tijmen.<br>
-        Voor zakelijke aanvragen: <a href="{{ '/contact' | relative_url }}">zie de contactpagina</a>.
+        Vragen? <a href="{{ '/contact' | relative_url }}">Neem contact op</a>.
       </p>
     </div>
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Contact"
-description: "Zakelijke aanvragen voor Tijmen op Stoom. Dit platform wordt beheerd door de ouders van Tijmen."
+description: "Neem contact op met Tijmen op Stoom. Dit platform wordt beheerd door de ouders van Tijmen."
 ---
 
 <style>
@@ -148,8 +148,8 @@ description: "Zakelijke aanvragen voor Tijmen op Stoom. Dit platform wordt behee
 <section class="contact-hero">
   <div class="container">
     <span class="label">Neem contact op</span>
-    <h1>Zakelijke <em>aanvragen</em></h1>
-    <p>Samenwerkingen, sponsoring of media-aanvragen? Wij horen graag van je.</p>
+    <h1>Stuur een <em>berichtje</em></h1>
+    <p>Vragen, opmerkingen of gewoon even zeggen dat je de videos leuk vindt? Wij horen graag van je.</p>
   </div>
 </section>
 
@@ -159,7 +159,7 @@ description: "Zakelijke aanvragen voor Tijmen op Stoom. Dit platform wordt behee
     <div class="contact-card">
       <h2>📧 E-mail</h2>
       <p>
-        Voor zakelijke vragen kun je ons bereiken via e-mail. Alle berichten worden
+        Heb je een vraag of reactie? Je kunt ons bereiken via e-mail. Alle berichten worden
         gelezen en beantwoord door de ouders van Tijmen.
       </p>
       <a href="mailto:info@tijmenopstoom.nl" class="email-link">
@@ -171,17 +171,6 @@ description: "Zakelijke aanvragen voor Tijmen op Stoom. Dit platform wordt behee
       <p class="response-note">
         <span>⏱</span> We reageren binnen 3–5 werkdagen.
       </p>
-    </div>
-
-    <div class="contact-card">
-      <h2>💼 Wat we doen</h2>
-      <ul class="scope-list">
-        <li>Samenwerkingen met trein- en reisgerelateerde merken</li>
-        <li>Product reviews van treingerelateerde items</li>
-        <li>Gastbijdragen op family-friendly platforms</li>
-        <li>Evenementen en persevents rondom treinen en spoor</li>
-        <li>Media-aanvragen en interviews</li>
-      </ul>
     </div>
 
     <div class="contact-card">
