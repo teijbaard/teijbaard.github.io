@@ -153,7 +153,7 @@ description: "Neem contact op met Tijmen op Stoom. Dit platform wordt beheerd do
         Alle berichten worden gelezen en beantwoord door de ouders van Tijmen.
       </p>
       <!-- Webhook: vervang de action-URL door jouw eigen Make.com webhook -->
-      <form id="contact-form" class="contact-form" action="{{ site.make_webhook_url }}" method="POST">
+      <form id="contact-form" class="contact-form" action="https://hook.eu1.make.com/1vcvgttjf3wnycjyehwpp4f7181jtyxp" method="POST">
         <div class="form-group">
           <label for="name">Naam</label>
           <input type="text" id="name" name="name" required placeholder="Jouw naam">
