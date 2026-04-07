@@ -41,6 +41,11 @@ keywords:
   - Treinen voor kinderen
   - Tijmen op Stoom
 
+# Onderhoudsmodus
+# Zet op 'true' om de onderhoudspagina te tonen aan alle bezoekers.
+# Zet op 'false' (of verwijder de regel) voor de normale, live website.
+maintenance_mode: false
+
 # Build
 future: true  # publiceer ook documenten met een toekomstige datum
 markdown: kramdown

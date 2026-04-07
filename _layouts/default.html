@@ -8,6 +8,11 @@
   <meta name="keywords" content="Treinspotter, Stoomtreinen, Junior Expert, NS 1607, VSM 23076, ICE, ICNG, Goederentreinen, Tijmen op Stoom">
   <meta name="robots" content="index, follow">
 
+  {% if site.maintenance_mode == true and page.permalink != '/onderhoud/' %}
+  <meta http-equiv="refresh" content="0; url={{ '/onderhoud/' | relative_url }}">
+  <link rel="canonical" href="{{ '/onderhoud/' | absolute_url }}">
+  {% endif %}
+
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}">
