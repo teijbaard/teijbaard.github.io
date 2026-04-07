@@ -27,8 +27,11 @@ jobs:
           ruby-version: '3.3'
           bundler-cache: true  # leest BUNDLED WITH uit Gemfile.lock en installeert die versie
 
+      - name: Inject secrets config
+        run: echo "make_webhook_url: \"${{ secrets.MAKE_WEBHOOK_URL }}\"" > _secrets.yml
+
       - name: Build site
-        run: bundle exec jekyll build --trace
+        run: bundle exec jekyll build --config _config.yml,_secrets.yml --trace
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
