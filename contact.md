@@ -46,57 +46,47 @@ description: "Neem contact op met Tijmen op Stoom. Dit platform wordt beheerd do
     margin-bottom: 1.25rem;
   }
 
-  .email-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.625rem;
+  .contact-form label {
+    display: block;
     font-family: 'Fira Sans', sans-serif;
     font-weight: 800;
-    font-size: 1.05rem;
-    color: var(--rust);
-    background: var(--rust-light);
-    border: 1px solid rgba(200,81,26,0.2);
-    padding: 0.875rem 1.5rem;
-    border-radius: var(--radius);
-    transition: all var(--t);
-  }
-  .email-link:hover {
-    background: var(--rust);
-    color: #fff;
-    transform: translateY(-1px);
-  }
-
-  .response-note {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
     font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-top: 1rem;
-    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 0.4rem;
   }
-
-  .scope-list {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: 0.5rem;
-    margin-bottom: 0;
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.975rem;
+    transition: border-color var(--t), box-shadow var(--t);
   }
-  .scope-list li {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    font-size: 0.925rem;
-    color: var(--text-muted);
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    outline: none;
+    border-color: var(--rust);
+    box-shadow: 0 0 0 3px rgba(192,78,26,0.1);
   }
-  .scope-list li::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    background: var(--rust);
-    border-radius: 50%;
-    flex-shrink: 0;
+  .contact-form textarea { resize: vertical; min-height: 130px; }
+  .contact-form .form-group { margin-bottom: 1.25rem; }
+  .contact-form .form-group:last-of-type { margin-bottom: 1.5rem; }
+  .contact-form .submit-btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0.9rem;
+  }
+  .contact-form .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
   }
 
   .social-grid {
@@ -157,20 +147,37 @@ description: "Neem contact op met Tijmen op Stoom. Dit platform wordt beheerd do
   <div class="contact-body">
 
     <div class="contact-card">
-      <h2>📧 E-mail</h2>
+      <h2>✉️ Stuur een bericht</h2>
       <p>
-        Heb je een vraag of reactie? Je kunt ons bereiken via e-mail. Alle berichten worden
-        gelezen en beantwoord door de ouders van Tijmen.
+        Heb je een vraag of reactie? Vul het formulier in en we reageren zo snel mogelijk.
+        Alle berichten worden gelezen en beantwoord door de ouders van Tijmen.
       </p>
-      <a href="mailto:info@tijmenopstoom.nl" class="email-link">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-        </svg>
-        info@tijmenopstoom.nl
-      </a>
-      <p class="response-note">
-        <span>⏱</span> We reageren binnen 3–5 werkdagen.
-      </p>
+      <!-- Webhook: vervang de action-URL door jouw eigen Make.com webhook -->
+      <form id="contact-form" class="contact-form" action="https://hook.eu1.make.com/1vcvgttjf3wnycjyehwpp4f7181jtyxp" method="POST">
+        <div class="form-group">
+          <label for="name">Naam</label>
+          <input type="text" id="name" name="name" required placeholder="Jouw naam">
+        </div>
+        <div class="form-group">
+          <label for="email">E-mailadres</label>
+          <input type="email" id="email" name="_replyto" required placeholder="jouw@email.nl">
+        </div>
+        <div class="form-group">
+          <label for="message">Bericht</label>
+          <textarea id="message" name="message" required placeholder="Schrijf hier je bericht…"></textarea>
+        </div>
+        <button id="submit-btn" type="submit" class="btn btn-primary submit-btn">Versturen</button>
+      </form>
+      <script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+          e.preventDefault();
+          var btn = document.getElementById('submit-btn');
+          btn.disabled = true;
+          btn.textContent = 'Bezig met verzenden…';
+          fetch(this.action, { method: 'POST', body: new FormData(this) })
+            .finally(function() { window.location.href = '/bedankt/'; });
+        });
+      </script>
     </div>
 
     <div class="contact-card">
