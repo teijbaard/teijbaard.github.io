@@ -1,0 +1,101 @@
+---
+layout: default
+title: "Pagina niet gevonden"
+description: "Oeps, dit spoor loopt dood. Maar de rest van Tijmen op Stoom rijdt gewoon door!"
+permalink: /404.html
+sitemap: false
+---
+
+<style>
+  .error-hero {
+    background: var(--surface);
+    padding: 5rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .error-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .error-text .label { margin-bottom: 1.25rem; }
+
+  .error-code {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 800;
+    font-size: clamp(5rem, 12vw, 9rem);
+    color: var(--rust);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.04em;
+  }
+
+  .error-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    color: var(--text);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+  .error-title em {
+    font-style: normal;
+    color: var(--rust);
+  }
+
+  .error-lead {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    max-width: 420px;
+  }
+
+  .error-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .error-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .error-img {
+    width: 100%;
+    max-width: 420px;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 12px 40px rgba(28,26,23,0.12);
+  }
+
+  @media (max-width: 768px) {
+    .error-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .error-visual { order: -1; }
+    .error-lead { max-width: 100%; }
+    .error-code { font-size: clamp(4rem, 18vw, 6rem); }
+  }
+</style>
+
+<section class="error-hero">
+  <div class="container">
+    <div class="error-inner">
+      <div class="error-text">
+        <span class="label">Oeps — verkeerd spoor</span>
+        <div class="error-code">404</div>
+        <h1 class="error-title">Dit spoor<br>loopt <em>dood</em></h1>
+        <p class="error-lead">
+          De pagina die je zoekt bestaat niet (meer) of is verplaatst.
+          Geen paniek — de rest van Tijmen op Stoom rijdt gewoon door!
+        </p>
+        <div class="error-actions">
+          <a href="{{ '/' | relative_url }}" class="btn btn-primary">← Terug naar home</a>
+          <a href="{{ '/expedities' | relative_url }}" class="btn btn-ghost">Bekijk de expedities</a>
+          <a href="{{ '/contact' | relative_url }}" class="btn btn-outline">Contact</a>
+        </div>
+      </div>
+      <div class="error-visual">
+        <img src="{{ '/assets/img/404.webp' | relative_url }}" alt="Verdwaald op het spoor" class="error-img" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
