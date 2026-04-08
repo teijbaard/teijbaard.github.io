@@ -195,3 +195,298 @@ layout: default
 </style>
 
 {{ content }}
+
+{% assign exp_evenement = page.fotos_evenement | downcase %}
+{% if exp_evenement and exp_evenement != "" %}
+  {% assign exp_fotos = "" | split: "" %}
+  {% for foto in site.data.fotos %}
+    {% assign foto_ev = foto.evenement | downcase %}
+    {% if foto_ev == exp_evenement %}
+      {% assign exp_fotos = exp_fotos | push: foto %}
+    {% endif %}
+  {% endfor %}
+  {% if exp_fotos.size > 0 %}
+<style>
+  .exp-fotos-section {
+    padding: 3.5rem 0 4rem;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+  .exp-fotos-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .exp-fotos-header h2 {
+    font-size: 1.5rem;
+    color: var(--text);
+  }
+  .exp-fotos-count {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 800;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--rust-light);
+    color: var(--rust-dark);
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+  }
+  .exp-fotos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .exp-foto-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+  }
+  .exp-foto-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(28,26,23,0.1);
+    border-color: var(--rust-mid);
+  }
+  .exp-foto-thumb {
+    position: relative;
+    padding-bottom: 66.66%;
+    overflow: hidden;
+    background: var(--surface-warm);
+  }
+  .exp-foto-thumb img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+  .exp-foto-card:hover .exp-foto-thumb img { transform: scale(1.04); }
+  .exp-foto-thumb-placeholder {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-subtle);
+  }
+  .exp-foto-thumb-placeholder svg { width: 32px; height: 32px; opacity: 0.3; }
+  .exp-foto-info {
+    padding: 0.75rem 1rem 0.875rem;
+  }
+  .exp-foto-titel {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
+  }
+  .exp-foto-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .exp-foto-sub svg { width: 11px; height: 11px; flex-shrink: 0; }
+  .exp-fotos-more {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+  @media (max-width: 600px) {
+    .exp-fotos-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  }
+</style>
+
+<section class="exp-fotos-section">
+  <div class="container">
+    <div class="exp-fotos-header">
+      <p class="label" style="margin:0;">Foto's</p>
+      <h2>Van deze expeditie</h2>
+      <span class="exp-fotos-count">{{ exp_fotos.size }}</span>
+    </div>
+
+    <div class="exp-fotos-grid">
+      {% for foto in exp_fotos %}
+      <article class="exp-foto-card" onclick="openLightbox(this)">
+        <div class="exp-foto-thumb">
+          <img
+            src="{{ '/assets/fotos/' | append: foto.bestand | relative_url }}"
+            alt="{{ foto.titel }}"
+            loading="lazy"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="exp-foto-thumb-placeholder" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21,15 16,10 5,21"/>
+            </svg>
+          </div>
+        </div>
+        <div class="exp-foto-info">
+          <div class="exp-foto-titel">{{ foto.titel }}</div>
+          <div class="exp-foto-sub">
+            {% if foto.locatie and foto.locatie != "" %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            {{ foto.locatie }}
+            {% elsif foto.datum %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            {{ foto.datum | date: "%d-%m-%Y" }}
+            {% endif %}
+          </div>
+        </div>
+        <script type="application/json" class="foto-data">
+        {
+          "bestand": "{{ foto.bestand }}",
+          "titel": {{ foto.titel | jsonify }},
+          "beschrijving": {{ foto.beschrijving | default: "" | jsonify }},
+          "vervoerder": {{ foto.vervoerder | default: "" | jsonify }},
+          "type": {{ foto.type | default: "" | jsonify }},
+          "evenement": {{ foto.evenement | default: "" | jsonify }},
+          "locatie": {{ foto.locatie | default: "" | jsonify }},
+          "fotograaf": {{ foto.fotograaf | default: "" | jsonify }},
+          "datum": {{ foto.datum | default: "" | date: "%d-%m-%Y" | jsonify }}
+        }
+        </script>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="exp-fotos-more">
+      <a href="{{ '/fotos/?evenement=' | append: page.fotos_evenement | relative_url }}" class="btn btn-outline">
+        Alle foto's bekijken →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox (shared with fotos page) -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto vergroten">
+  <div class="lightbox-inner" id="lightbox-inner">
+    <div class="lightbox-img-wrap">
+      <img src="" alt="" id="lightbox-img">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Sluiten">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="lightbox-body">
+      <h2 class="lightbox-title" id="lightbox-title"></h2>
+      <p class="lightbox-desc" id="lightbox-desc"></p>
+      <div class="lightbox-details" id="lightbox-details"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(28,26,23,0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox-inner {
+    position: relative;
+    max-width: 1000px;
+    width: 100%;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+  }
+  .lightbox-img-wrap { position: relative; background: #111; flex-shrink: 0; }
+  .lightbox-img-wrap img { width: 100%; max-height: 60vh; object-fit: contain; display: block; }
+  .lightbox-close {
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    width: 36px; height: 36px;
+    background: rgba(0,0,0,0.5); border: none; border-radius: 50%;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: #fff; transition: background var(--t); z-index: 2;
+  }
+  .lightbox-close:hover { background: var(--rust); }
+  .lightbox-close svg { width: 16px; height: 16px; }
+  .lightbox-body { padding: 1.5rem; overflow-y: auto; }
+  .lightbox-title { font-family: 'Fira Sans', sans-serif; font-weight: 800; font-size: 1.35rem; color: var(--text); margin-bottom: 0.5rem; }
+  .lightbox-desc { color: var(--text-muted); font-size: 0.925rem; margin-bottom: 1rem; line-height: 1.7; }
+  .lightbox-details { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+  .lightbox-detail { display: flex; align-items: center; gap: 0.4rem; font-size: 0.825rem; color: var(--text-muted); }
+  .lightbox-detail svg { width: 13px; height: 13px; color: var(--rust); flex-shrink: 0; }
+  .lightbox-detail strong { color: var(--text); font-weight: 600; }
+</style>
+
+<script>
+(function() {
+  const lightbox  = document.getElementById('lightbox');
+  const lbImg     = document.getElementById('lightbox-img');
+  const lbTitle   = document.getElementById('lightbox-title');
+  const lbDesc    = document.getElementById('lightbox-desc');
+  const lbDetails = document.getElementById('lightbox-details');
+  const lbClose   = document.getElementById('lightbox-close');
+
+  const icons = {
+    train: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>',
+    tag:   '<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>',
+    star:  '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+    pin:   '<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>',
+    cam:   '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
+    cal:   '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>'
+  };
+
+  window.openLightbox = function(card) {
+    const raw  = card.querySelector('.foto-data').textContent;
+    const data = JSON.parse(raw);
+    const base = '{{ "/assets/fotos/" | relative_url }}';
+
+    lbImg.src = base + data.bestand;
+    lbImg.alt = data.titel;
+    lbTitle.textContent = data.titel;
+    lbDesc.textContent  = data.beschrijving || '';
+    lbDesc.style.display = data.beschrijving ? '' : 'none';
+
+    const details = [];
+    if (data.vervoerder) details.push({ icon: 'train', label: 'Vervoerder', val: data.vervoerder.toUpperCase() });
+    if (data.type)       details.push({ icon: 'tag',   label: 'Type',       val: data.type.toUpperCase() });
+    if (data.evenement)  details.push({ icon: 'star',  label: 'Evenement',  val: data.evenement });
+    if (data.locatie)    details.push({ icon: 'pin',   label: 'Locatie',    val: data.locatie });
+    if (data.fotograaf)  details.push({ icon: 'cam',   label: 'Fotograaf',  val: data.fotograaf });
+    if (data.datum)      details.push({ icon: 'cal',   label: 'Datum',      val: data.datum });
+
+    lbDetails.innerHTML = details.map(d => `
+      <div class="lightbox-detail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${icons[d.icon]}</svg>
+        <span>${d.label}: <strong>${d.val}</strong></span>
+      </div>`).join('');
+
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+})();
+</script>
+  {% endif %}
+{% endif %}

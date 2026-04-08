@@ -1,0 +1,23 @@
+# Fotodatabase — voeg hier nieuwe foto's toe
+# Sla foto's op in: assets/fotos/
+#
+# Velden:
+#   bestand:      bestandsnaam in assets/fotos/ (verplicht)
+#   titel:        korte titel (verplicht)
+#   vervoerder:   ns | db | vsm | spoorwegmuseum | (leeg)
+#   evenement:    naam van evenement, bv. "Stoomdag VSM 2024"
+#   type:         br193 | br52 | flirt | ice | icng | e-loc | diesel | stoom | anders
+#   locatie:      vrije tekst, bv. "Utrecht Centraal"
+#   fotograaf:    naam fotograaf
+#   datum:        YYYY-MM-DD formaat
+#   beschrijving: optionele caption
+
+- bestand:      "voorbeeld.jpg"
+  titel:        "Voorbeeldfoto"
+  vervoerder:   "ns"
+  evenement:    ""
+  type:         "br193"
+  locatie:      "Amsterdam Centraal"
+  fotograaf:    "Tijmen"
+  datum:        "2024-01-01"
+  beschrijving: "Dit is een voorbeeldfoto. Vervang door echte foto's."
