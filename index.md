@@ -587,7 +587,7 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
           {%- for v in site.data.youtube.videos offset:1 %}
           <li>
             <a href="https://www.youtube.com/watch?v={{ v.id }}" target="_blank" rel="noopener">
-              <time datetime="{{ v.gepubliceerd }}">{% include datum.html d=v.gepubliceerd kort=true %}</time>
+              {%- if v.gepubliceerd != "" %}<time datetime="{{ v.gepubliceerd }}">{% include datum.html d=v.gepubliceerd kort=true %}</time>{% endif %}
               <span>{{ v.titel }}</span>
             </a>
           </li>
@@ -609,7 +609,7 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
           </span>
           <span class="video-caption">
             {{ nieuwste.titel }}
-            <small>{% include datum.html d=nieuwste.gepubliceerd %}</small>
+            {%- if nieuwste.gepubliceerd != "" %}<small>{% include datum.html d=nieuwste.gepubliceerd %}</small>{% endif %}
           </span>
         </button>
         {%- else %}

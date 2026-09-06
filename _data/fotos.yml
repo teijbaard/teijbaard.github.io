@@ -27,14 +27,14 @@
 # verschijnt vanzelf in het keuzemenu zodra hij in _data/labels.yml staat.
 
 - bestand:      "2026-09-05-img1263.webp"
-  titel:        "Gouden avondlicht op Terug naar Toen"
+  titel:        "Gouden ochtendlicht op Terug naar Toen"
   vervoerder:   "vsm"
   type:         "stoom"
   land:         "nl"
   evenement:    "Terug naar Toen 2026"
   locatie:      "Lieren (VSM-lijn)"
   datum:        "2026-09-05"
-  beschrijving: "De laatste zon van de dag op de zilveren rijtuigen."
+  beschrijving: "Vroeg op pad voor de ochtendritten, met de eerste zon op de zilveren rijtuigen."
   breedte:      1800
   hoogte:       1350
   hero:         true
@@ -614,18 +614,6 @@
   breedte:      1800
   hoogte:       1012
   hero:         true
-- bestand:      "2024-06-14-img5669.webp"
-  titel:        "Tijmen bij De Arend"
-  vervoerder:   "spoorwegmuseum"
-  type:         "stoom"
-  land:         "nl"
-  evenement:    ""
-  locatie:      "Het Spoorwegmuseum, Utrecht"
-  datum:        "2024-06-14"
-  beschrijving: "De replica van De Arend uit 1839, de eerste trein van Nederland. En daar sta ik dan, piepklein ernaast."
-  breedte:      1800
-  hoogte:       1350
-  hero:         true
 - bestand:      "2023-07-29-img1456.webp"
   titel:        "Rode trein langs het bergmeer"
   vervoerder:   "rhb"
@@ -671,18 +659,6 @@
   locatie:      "Bezau (Vorarlberg)"
   datum:        "2023-07-26"
   beschrijving: "Een kleine smalspoorstoomloc draait op de schijf, met de bergen op de achtergrond."
-  breedte:      1800
-  hoogte:       1350
-  hero:         true
-- bestand:      "2023-05-19-img2270.webp"
-  titel:        "Thomas de Stoomlocomotief"
-  vervoerder:   "spoorwegmuseum"
-  type:         "stoom"
-  land:         "nl"
-  evenement:    ""
-  locatie:      "Het Spoorwegmuseum, Utrecht"
-  datum:        "2023-05-19"
-  beschrijving: "Thomas met zijn grote gezicht. Iedereen kent hem, en toch blijft hij bijzonder van dichtbij."
   breedte:      1800
   hoogte:       1350
   hero:         true
