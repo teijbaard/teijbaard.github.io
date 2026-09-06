@@ -78,6 +78,13 @@
     }
   }
   </script>
+  {%- comment -%}
+    Bezoekstatistieken op onze eigen server. Alleen op de live site: lokale
+    builds en previews vervuilen de cijfers dan niet.
+  {%- endcomment -%}
+  {%- if jekyll.environment == 'production' and site.analytics.script %}
+  <script defer src="{{ site.analytics.script }}" data-website-id="{{ site.analytics.website_id }}"></script>
+  {%- endif %}
 </head>
 <body>
 
@@ -155,27 +162,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- Cookie banner -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
-  <script>
-  window.addEventListener("load", function() {
-    window.cookieconsent.initialise({
-      "palette": {
-        "popup":  { "background": "#1C1A17" },
-        "button": { "background": "#C04E1A" }
-      },
-      "theme": "classic",
-      "type": "info",
-      "content": {
-        "message": "Deze website gebruikt functionele cookies.",
-        "dismiss": "Begrepen",
-        "link": false
-      }
-    });
-  });
-  </script>
 
   <script>
     const toggle = document.querySelector('.nav-toggle');

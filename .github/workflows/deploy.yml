@@ -64,7 +64,19 @@ jobs:
           ruby-version: '3.3'
           bundler-cache: true  # leest BUNDLED WITH uit Gemfile.lock en installeert die versie
 
+      - name: Schrijf build-secrets naar _data
+        env:
+          N8N_WEBHOOK_URL: ${{ secrets.n8n_webhook_url }}
+        run: |
+          if [ -z "$N8N_WEBHOOK_URL" ]; then
+            echo "::error::Secret n8n_webhook_url ontbreekt; het contactformulier zou zonder werkende actie live gaan."
+            exit 1
+          fi
+          printf 'n8n_webhook_url: "%s"\n' "$N8N_WEBHOOK_URL" > _data/secrets.yml
+
       - name: Build site
+        env:
+          JEKYLL_ENV: production   # anders bouwt Jekyll in 'development' en blijven de statistieken uit
         run: bundle exec jekyll build --trace
 
       - name: Upload artifact

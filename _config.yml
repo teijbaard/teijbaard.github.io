@@ -47,6 +47,15 @@ keywords:
 # Zet op 'false' (of verwijder de regel) voor de normale, live website.
 maintenance_mode: false
 
+# Bezoekstatistieken (eigen server, wordt alleen ingeladen bij JEKYLL_ENV=production)
+analytics:
+  script: "https://stats.eijbaard.nl/bezoek.js"
+  website_id: "0434ad61-4a25-46a1-87ea-689c80da7e92"
+
+# Cloudflare Turnstile op het contactformulier. Leeg laten = geen widget
+# (het formulier blijft dan werken, alleen met de spamval als bescherming).
+turnstile_sitekey: "0x4AAAAAAEFjtV-o7ev4_Mhu"
+
 # Build
 future: true  # publiceer ook documenten met een toekomstige datum
 markdown: kramdown

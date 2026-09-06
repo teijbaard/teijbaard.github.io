@@ -65,7 +65,7 @@ permalink: /privacy/
 <div class="container">
   <div class="privacy-body">
 
-    <span class="privacy-meta">Laatste update: april 2026</span>
+    <span class="privacy-meta">Laatste update: september 2026</span>
 
     <h2>Wie zijn wij?</h2>
     <p>
@@ -98,24 +98,54 @@ permalink: /privacy/
       <li>Verkoop of verstrekking aan derden.</li>
     </ul>
 
+    <h2>Bezoekstatistieken</h2>
+    <p>
+      We willen graag weten welke pagina's en expedities gelezen worden. Daarvoor gebruiken we
+      <strong>Umami</strong>, een statistiekenprogramma dat op onze eigen server draait
+      (stats.eijbaard.nl). Umami werkt <strong>zonder cookies</strong> en volgt je niet
+      van de ene website naar de andere.
+    </p>
+    <p>We kijken alleen naar cijfers over de site als geheel:</p>
+    <ul>
+      <li>Welke pagina is bekeken, en wanneer.</li>
+      <li>Via welke website of zoekmachine je binnenkwam.</li>
+      <li>Het soort apparaat, de browser en het land.</li>
+    </ul>
+    <p>
+      Je IP-adres wordt gebruikt om het land te bepalen, maar niet opgeslagen. Er worden geen
+      profielen van bezoekers gemaakt en de cijfers blijven op onze eigen server: ze gaan niet
+      naar Google of een advertentienetwerk.
+    </p>
+
     <h2>Hoe lang bewaren we je gegevens?</h2>
     <p>
       Berichten worden bewaard zolang dat nodig is voor de afhandeling van je vraag.
       Daarna worden ze verwijderd. Je kunt altijd vragen om verwijdering via het contactformulier.
     </p>
+    <p>
+      De bezoekcijfers bevatten geen persoonsgegevens en bewaren we zolang ze nuttig zijn.
+    </p>
 
     <h2>Verwerkers en derde partijen</h2>
     <p>We maken gebruik van de volgende diensten:</p>
     <ul>
-      <li><strong>Make.com (Integromat)</strong> — verwerkt inkomende formulierberichten en stuurt ze door naar ons e-mailadres. Make.com is een Europese dienst en verwerkt gegevens conform de AVG.</li>
+      <li><strong>n8n op onze eigen server</strong> — verwerkt inkomende formulierberichten en stuurt ze door naar ons e-mailadres. Je bericht gaat dus niet langs een externe verwerker.</li>
+      <li><strong>Cloudflare Turnstile</strong> — controleert op de contactpagina of het formulier door een mens wordt ingevuld en niet door een spamrobot. Cloudflare ziet daarbij je IP-adres en een paar browsergegevens. Die gegevens worden niet gebruikt voor advertenties of profielen.</li>
+      <li><strong>Umami op onze eigen server</strong> — de bezoekstatistieken hierboven. Geen externe partij, geen cookies.</li>
       <li><strong>GitHub Pages</strong> — hostingplatform van deze website (Microsoft/GitHub). Er worden geen persoonsgegevens opgeslagen door GitHub Pages.</li>
       <li><strong>YouTube &amp; Instagram</strong> — externe platforms met eigen privacybeleid. Door die links te volgen verlaat je onze website.</li>
     </ul>
 
     <h2>Cookies</h2>
     <p>
-      Deze website gebruikt uitsluitend <strong>functionele cookies</strong> — noodzakelijk voor het correct functioneren van de site.
-      Er worden geen tracking- of advertentiecookies geplaatst. Bij je eerste bezoek wordt je om toestemming gevraagd.
+      Er worden <strong>geen tracking- of advertentiecookies</strong> geplaatst, en de
+      bezoekstatistieken werken volledig zonder cookies.
+    </p>
+    <p>
+      Eén uitzondering: op de contactpagina draait de spamcontrole van Cloudflare. Die kan een
+      technisch noodzakelijk bestandje in je browser plaatsen om te onthouden dat de controle
+      geslaagd is. Dat is functioneel en wordt niet gebruikt om je te volgen. Verder plaatst
+      deze website niets in je browser, en daarom zie je hier ook geen cookiemelding.
     </p>
 
     <h2>Jouw rechten (AVG)</h2>

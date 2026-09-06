@@ -94,6 +94,7 @@ permalink: /contact/
   }
   .form-fout[hidden] { display: none; }
   .contact-form .form-group { margin-bottom: 1.25rem; }
+  .contact-form .cf-turnstile { margin-bottom: 1.25rem; }
   .contact-form .form-group:last-of-type { margin-bottom: 1.5rem; }
   .contact-form .submit-btn {
     width: 100%;
@@ -170,8 +171,13 @@ permalink: /contact/
         Heb je een vraag of reactie? Vul het formulier in en we reageren zo snel mogelijk.
         Alle berichten worden gelezen en beantwoord door de ouders van Tijmen.
       </p>
-      <!-- Webhook: vervang de action-URL door jouw eigen Make.com webhook -->
-      <form id="contact-form" class="contact-form" action="https://hook.eu1.make.com/1vcvgttjf3wnycjyehwpp4f7181jtyxp" method="POST">
+      {%- assign turnstile_sitekey = site.turnstile_sitekey | default: '' -%}
+      {%- comment -%}
+        De webhook-URL is een geheim: de workflow schrijft hem tijdens de build
+        naar _data/secrets.yml. Lokaal ontbreekt dat bestand, dan blijft action
+        leeg en weigert het script te versturen.
+      {%- endcomment -%}
+      <form id="contact-form" class="contact-form" action="{{ site.data.secrets.n8n_webhook_url }}" method="POST">
         <div class="form-group">
           <label for="name">Naam</label>
           <input type="text" id="name" name="name" required placeholder="Jouw naam">
@@ -190,42 +196,97 @@ permalink: /contact/
           <label for="website">Website</label>
           <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
         </div>
+        <input type="hidden" id="form-loaded-at" name="form_loaded_at" value="">
+        {%- if turnstile_sitekey.size > 0 %}
+        <!-- Anti-spamcontrole van Cloudflare; zonder sitekey in _config.yml blijft hij weg. -->
+        <div class="cf-turnstile" data-sitekey="{{ turnstile_sitekey }}" data-language="nl"
+             data-error-callback="turnstileFout"></div>
+        {%- endif %}
         <button id="submit-btn" type="submit" class="btn btn-primary submit-btn">Versturen</button>
       </form>
       <p class="form-fout" id="form-fout" hidden role="alert">
         Het versturen lukte niet. Probeer het zo nog eens, of stuur een DM op Instagram.
       </p>
+      {%- if turnstile_sitekey.size > 0 %}
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+      {%- endif %}
       <script>
-        document.getElementById('contact-form').addEventListener('submit', function (e) {
-          e.preventDefault();
-          var form = this;
+        (function () {
+          var form = document.getElementById('contact-form');
           var btn  = document.getElementById('submit-btn');
           var fout = document.getElementById('form-fout');
+          var foutStandaard = fout.textContent;
           var bedankt = {{ '/bedankt/' | relative_url | jsonify }};
+          var geenSpamcontrole = 'De spamcontrole wil niet laden. Stuur je bericht via Instagram of YouTube, dan komt het ook bij ons aan.';
+          var turnstileKapot = false;
 
-          // Spamval gevuld? Doen alsof het gelukt is, maar niets versturen.
-          if (form.website.value) { window.location.href = bedankt; return; }
+          // Tijdstip van laden; n8n kan zo berichten weren die binnen een
+          // seconde na het openen van de pagina binnenkomen.
+          document.getElementById('form-loaded-at').value = Date.now();
 
-          var data = new FormData(form);
-          data.delete('website');
+          function meldFout(tekst) {
+            fout.textContent = tekst || foutStandaard;
+            fout.hidden = false;
+          }
 
-          fout.hidden = true;
-          btn.disabled = true;
-          btn.textContent = 'Bezig met verzenden…';
+          // Cloudflare roept dit aan als de widget niet werkt — bijvoorbeeld fout
+          // 110200, als dit domein niet in de widget-instellingen staat. Zonder
+          // deze melding blijft de bezoeker eindeloos op de controle wachten.
+          window.turnstileFout = function () {
+            turnstileKapot = true;
+            meldFout(geenSpamcontrole);
+            return true;
+          };
 
-          fetch(form.action, { method: 'POST', body: data })
-            .then(function (r) {
-              // Alleen doorsturen als het écht gelukt is — anders denkt de
-              // bezoeker dat het bericht aankwam terwijl het verdween.
-              if (!r.ok) throw new Error(r.status);
-              window.location.href = bedankt;
-            })
-            .catch(function () {
-              fout.hidden = false;
-              btn.disabled = false;
-              btn.textContent = 'Opnieuw versturen';
-            });
-        });
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Spamval gevuld? Doen alsof het gelukt is, maar niets versturen.
+            if (form.website.value) { window.location.href = bedankt; return; }
+
+            // Geen webhook ingevuld: niet versturen, anders post het formulier
+            // naar de contactpagina zelf en verdwijnt het bericht.
+            if (!form.getAttribute('action')) {
+              meldFout('Het formulier staat even uit. Stuur je bericht zolang via Instagram of YouTube.');
+              return;
+            }
+
+            // De controle van Cloudflare moet rond zijn voordat we versturen.
+            var widget = form.querySelector('.cf-turnstile');
+            var token  = form.querySelector('[name="cf-turnstile-response"]');
+            if (widget && (!token || !token.value)) {
+              meldFout(turnstileKapot
+                ? geenSpamcontrole
+                : 'Een momentje — de spamcontrole is nog bezig. Probeer het zo nog een keer.');
+              return;
+            }
+
+            // Alle velden meesturen, ook het lege spamvalveld: zo krijgt n8n
+            // exact dezelfde payload als vanaf markeijbaard.nl.
+            var data = new FormData(form);
+
+            fout.hidden = true;
+            btn.disabled = true;
+            btn.textContent = 'Bezig met verzenden…';
+
+            fetch(form.action, { method: 'POST', body: data })
+              .then(function (r) {
+                // Alleen doorsturen als het echt gelukt is — anders denkt de
+                // bezoeker dat het bericht aankwam terwijl het verdween.
+                // Hiervoor moet de n8n-webhook 'Allowed Origins (CORS)' op
+                // https://tijmenopstoom.nl hebben staan.
+                if (!r.ok) throw new Error(r.status);
+                window.location.href = bedankt;
+              })
+              .catch(function () {
+                meldFout();
+                btn.disabled = false;
+                btn.textContent = 'Opnieuw versturen';
+                // Een Turnstile-token geldt maar één keer; opnieuw laten checken.
+                if (window.turnstile) { window.turnstile.reset(); }
+              });
+          });
+        })();
       </script>
     </div>
 
