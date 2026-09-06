@@ -1,0 +1,14 @@
+# Automatisch bijgewerkt door tools/haal-youtube.py — niet met de hand aanpassen.
+# De GitHub Action draait dit dagelijks; de homepage toont `videos[0]`.
+
+kanaal:     "TijmenopStoom"
+kanaal_id:  "UCmh2xBnD3JkSSCcbzsF9M4w"
+bijgewerkt: "2026-09-05T19:26:55Z"
+
+videos:
+  - id:           "-2faB9IXTX4"
+    titel:        "Terug naar Toen zaterdag 5 september 2026 ochtendritten"
+    gepubliceerd: "2026-09-05"
+  - id:           "c5o3N7PKiMY"
+    titel:        "Terug naar Toen vrijdag 4 september. Loctrein en SSN onderweg"
+    gepubliceerd: "2026-09-04"

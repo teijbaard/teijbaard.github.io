@@ -1,0 +1,13 @@
+{%- comment -%}
+  Datum in het Nederlands. Jekyll's date-filter kent alleen Engelse maandnamen.
+
+    {% include datum.html d=foto.datum %}          -> 5 september 2026
+    {% include datum.html d=exp.date kort=true %}  -> 5 sep
+{%- endcomment -%}
+{%- assign maand = include.d | date: "%-m" | minus: 1 -%}
+{%- assign naam = site.data.labels.maanden[maand] -%}
+{%- if include.kort -%}
+{{ include.d | date: "%-d" }} {{ naam | slice: 0, 3 }}
+{%- else -%}
+{{ include.d | date: "%-d" }} {{ naam }} {{ include.d | date: "%Y" }}
+{%- endif -%}

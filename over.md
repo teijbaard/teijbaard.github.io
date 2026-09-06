@@ -2,6 +2,7 @@
 layout: default
 title: "Over Tijmen"
 description: "Leer Tijmen kennen: 8 jaar oud, junior treinspotter en expert op het gebied van de NS 1607, VSM 23076 en de ICE."
+permalink: /over/
 ---
 
 <style>
@@ -230,10 +231,11 @@ description: "Leer Tijmen kennen: 8 jaar oud, junior treinspotter en expert op h
 
     <div class="moment-card">
       <img
-        src="{{ '/assets/img/tijmen_150_oosterspoorweg.webp' | relative_url }}"
+        src="{{ '/assets/img/tijmen_150_oosterspoorweg-1600.webp' | relative_url }}"
         alt="Tijmen op station Baarn tijdens de viering van 150 jaar Oosterspoorweg, 8 juni 2024"
         class="moment-card-img"
-        loading="lazy">
+        width="1600" height="1067"
+        loading="lazy" decoding="async">
       <div class="moment-card-body">
         <span class="label">8 juni 2024 · Station Baarn</span>
         <h3>Op het podium bij 150 jaar Oosterspoorweg</h3>

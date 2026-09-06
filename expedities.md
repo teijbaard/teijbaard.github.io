@@ -133,7 +133,7 @@ permalink: /expedities/
       <div class="exp-list-info">
         <div class="exp-list-title">{{ exp.title }}</div>
         <div class="exp-list-meta">
-          <span>{{ exp.date | date: "%-d %B %Y" }}</span>
+          <span>{% include datum.html d=exp.date %}</span>
           {% if exp.locatie %}<span>{{ exp.locatie }}</span>{% endif %}
         </div>
         {% if exp.excerpt %}

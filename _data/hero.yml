@@ -1,0 +1,17 @@
+# Headerfoto van de homepage.
+#
+# Zelf kiezen? Zet hieronder de bestandsnaam uit _data/fotos.yml neer en
+# vul de datum van vandaag in bij `ingesteld_op`. Op /fotos/?beheer=1 staat
+# bij elke liggende foto een knop die dit blokje voor je klaarzet.
+#
+#   vast: true   de foto blijft staan tot je hem zelf weer wisselt
+#   vast: false  na een week kiest tools/roteer-hero.py willekeurig een andere
+
+bestand:      "2026-09-05-img1263.webp"
+ingesteld_op: "2026-09-05"
+bron:         "handmatig"
+vast:         false
+
+# Laatst getoond, nieuwste eerst — wordt gebruikt om herhaling te voorkomen.
+geschiedenis:
+  - "2026-09-05-img1263.webp"

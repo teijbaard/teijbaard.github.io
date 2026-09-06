@@ -3,16 +3,24 @@ name: Build & Deploy Jekyll to GitHub Pages
 on:
   push:
     branches: [main]
+  # Dagelijks: nieuwste YouTube-video ophalen en zo nodig de headerfoto rouleren.
+  schedule:
+    - cron: "17 4 * * *"
   workflow_dispatch:
+    inputs:
+      nieuwe_headerfoto:
+        description: "Meteen een andere headerfoto kiezen (negeert de week-termijn)"
+        type: boolean
+        default: false
 
 permissions:
-  contents: read
+  contents: write   # nodig om _data/youtube.yml en _data/hero.yml terug te committen
   pages: write
   id-token: write
 
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false   # niet afbreken tijdens een push van de bot
 
 jobs:
   build:
@@ -20,6 +28,35 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Python
+        if: github.event_name != 'push'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Nieuwste YouTube-video ophalen
+        if: github.event_name != 'push'
+        continue-on-error: true   # een hikkende feed mag de deploy niet blokkeren
+        run: python3 tools/haal-youtube.py
+
+      - name: Headerfoto rouleren
+        if: github.event_name != 'push'
+        continue-on-error: true   # mislukt dit, dan blijft simpelweg de huidige foto staan
+        run: python3 tools/roteer-hero.py ${{ inputs.nieuwe_headerfoto && '--forceer' || '' }}
+
+      - name: Wijzigingen terugcommitten
+        if: github.event_name != 'push'
+        run: |
+          if [ -z "$(git status --porcelain _data)" ]; then
+            echo "Niets veranderd in _data/ — geen commit nodig."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _data
+          git commit -m "chore: headerfoto en YouTube-video bijgewerkt"
+          git push origin HEAD:${{ github.event.repository.default_branch }}
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1

@@ -1,7 +1,8 @@
 title: "Tijmen op Stoom"
 description: "Treinspotter Tijmen (8) op avontuur langs stoomtreinen, ICE, ICNG en goederentreinen!"
-url: "https://tijmenopstoom.github.io"
-baseurl: ""
+url: "https://tijmenopstoom.nl"       # moet overeenkomen met CNAME — anders wijzen
+baseurl: ""                           # sitemap, canonical en og:url naar het verkeerde domein
+repository: "teijbaard/teijbaard.github.io"
 
 # Collections
 collections:
@@ -25,7 +26,7 @@ author:
 # Social platforms
 social:
   youtube: "https://www.youtube.com/@TijmenopStoom"
-  youtube_channel_id: "TijmenopStoom"
+  youtube_channel_id: "UCmh2xBnD3JkSSCcbzsF9M4w"  # let op: het UC-ID, niet de @handle
   instagram: "https://www.instagram.com/TijmenOpStoom"
 
 # SEO meta tags
@@ -65,3 +66,7 @@ exclude:
   - Gemfile.lock
   - node_modules
   - .git
+  - .claude
+  - graphify-out
+  - tools            # onderhoudsscripts, horen niet in _site
+  - vendor

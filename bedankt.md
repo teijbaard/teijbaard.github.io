@@ -79,7 +79,7 @@ permalink: /bedankt/
         </div>
       </div>
       <div class="bedankt-visual">
-        <img src="{{ '/assets/img/bedankt.webp' | relative_url }}" alt="Bericht verzonden" class="bedankt-img" loading="lazy">
+        <img src="{{ '/assets/img/bedankt-800.webp' | relative_url }}" alt="Bericht verzonden" class="bedankt-img" width="800" height="1200" loading="lazy" decoding="async">
       </div>
     </div>
   </div>

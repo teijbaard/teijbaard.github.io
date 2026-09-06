@@ -2,4 +2,8 @@ _site/
 .sass-cache/
 .jekyll-cache/
 .jekyll-metadata
-Gemfile.lock
+.DS_Store
+graphify-out/
+
+# Persoonlijke Claude Code-instellingen (bevat lokale paden)
+.claude/settings.local.json

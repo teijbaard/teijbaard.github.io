@@ -14,6 +14,77 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
     border-bottom: 1px solid var(--border);
   }
 
+  /* --- Hero mét headerfoto: dezelfde indeling, foto erachter ---
+     Foto, waas en inhoud krijgen elk een positieve z-index. Met 0 of een
+     negatieve waarde belandt de foto in dezelfde laag als de achtergrondkleur
+     van de sectie en verdwijnt hij erachter. */
+  .hero--foto {
+    position: relative;
+    background: var(--text);
+    border-bottom: none;
+    overflow: hidden;
+    padding: 6.5rem 0 5.5rem;
+  }
+  .hero--foto > .container { position: relative; z-index: 3; }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 42%;   /* liever de trein en de lucht dan de voorgrond */
+    z-index: 1;
+  }
+  /* Donker genoeg voor leesbare tekst links, licht genoeg om rechts de foto
+     te laten zien. Getest op zowel een fel als een donker beeld. */
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background:
+      linear-gradient(96deg,
+        rgba(20,17,14,0.90) 0%,
+        rgba(20,17,14,0.74) 26%,
+        rgba(20,17,14,0.40) 52%,
+        rgba(20,17,14,0.16) 78%,
+        rgba(20,17,14,0.10) 100%),
+      linear-gradient(to top, rgba(20,17,14,0.45), transparent 38%);
+  }
+  .hero--foto .hero-title { color: #fff; }
+  .hero--foto .hero-title em { color: var(--rust-mid); }
+  .hero--foto .label { color: var(--rust-mid); }
+  .hero--foto .hero-lead { color: rgba(255,255,255,0.82); }
+  .hero--foto .hero-logo { filter: drop-shadow(0 14px 38px rgba(0,0,0,0.5)); }
+  .hero--foto .btn-outline { color: #fff; border-color: rgba(255,255,255,0.65); }
+  .hero--foto .btn-outline:hover { background: rgba(255,255,255,0.14); border-color: #fff; }
+
+  .hero-credit {
+    position: absolute;
+    z-index: 4;
+    right: 1.5rem;
+    bottom: 1rem;
+    max-width: min(calc(100% - 3rem), 30rem);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1.35;
+    color: rgba(255,255,255,0.62);
+    background: rgba(24,20,16,0.42);
+    backdrop-filter: blur(3px);
+    padding: 0.4rem 0.75rem;
+    border-radius: 100px;
+    transition: color var(--t), background var(--t);
+  }
+  .hero-credit:hover { color: #fff; background: rgba(24,20,16,0.68); }
+  .hero-credit svg { width: 13px; height: 13px; flex-shrink: 0; opacity: 0.8; }
+  .hero-credit span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .hero-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -136,6 +207,88 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
     color: var(--text-muted);
     margin-bottom: 1.75rem;
     font-size: 1.025rem;
+  }
+
+  /* --- Klik-om-te-spelen: YouTube laadt pas ná een klik --- */
+  .video-facade {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface-warm);
+    cursor: pointer;
+    aspect-ratio: 16 / 9;
+  }
+  .video-facade img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease, filter var(--t);
+  }
+  .video-facade:hover img { transform: scale(1.03); filter: brightness(0.88); }
+
+  .video-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .video-play svg {
+    width: 68px;
+    height: 48px;
+    filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4));
+    transition: transform var(--t);
+  }
+  .video-facade:hover .video-play svg { transform: scale(1.09); }
+
+  .video-caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 2.5rem 1rem 0.9rem;
+    background: linear-gradient(to top, rgba(20,17,14,0.9), transparent);
+    color: #fff;
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    line-height: 1.3;
+    text-align: left;
+    pointer-events: none;
+  }
+  .video-caption small {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-top: 0.2rem;
+  }
+
+  .video-eerder {
+    list-style: none;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .video-eerder a {
+    display: flex;
+    gap: 0.55rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    padding: 0.3rem 0;
+    transition: color var(--t);
+  }
+  .video-eerder a:hover { color: var(--rust); }
+  .video-eerder time {
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-subtle);
   }
 
   /* =====================================================
@@ -302,6 +455,13 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
      ===================================================== */
   @media (max-width: 768px) {
     .hero-inner    { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero-credit   { position: static; margin: 1.75rem auto 0; max-width: none; justify-content: center; }
+    .hero--foto    { padding: 3rem 0 2rem; }
+    /* Smalle schermen: tekst staat over de volle breedte, dus een gelijkmatig
+       verticaal waas in plaats van het horizontale verloop. */
+    .hero--foto .hero-scrim {
+      background: linear-gradient(to bottom, rgba(20,17,14,0.70), rgba(20,17,14,0.86));
+    }
     .hero-visual   { order: -1; }
     .hero-logo     { height: 180px; }
     .video-inner   { grid-template-columns: 1fr; gap: 2rem; }
@@ -318,7 +478,27 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
 </style>
 
 <!-- HERO -->
-<section class="hero">
+{%- comment -%}
+  De headerfoto komt uit _data/hero.yml en wordt wekelijks gewisseld door
+  tools/roteer-hero.py. Staat daar niets (of een bestandsnaam die niet meer in
+  _data/fotos.yml voorkomt), dan valt de hero terug op de effen achtergrond.
+{%- endcomment -%}
+{%- assign hero_foto = nil -%}
+{%- if site.data.hero.bestand and site.data.hero.bestand != "" -%}
+  {%- for f in site.data.fotos -%}
+    {%- if f.bestand == site.data.hero.bestand -%}{%- assign hero_foto = f -%}{%- break -%}{%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+<section class="hero{% if hero_foto %} hero--foto{% endif %}">
+  {%- if hero_foto %}
+  <img class="hero-bg"
+       src="{{ '/assets/fotos/' | append: hero_foto.bestand | relative_url }}"
+       alt=""
+       width="{{ hero_foto.breedte }}" height="{{ hero_foto.hoogte }}"
+       fetchpriority="high" decoding="async">
+  <div class="hero-scrim" aria-hidden="true"></div>
+  {%- endif %}
   <div class="container">
     <div class="hero-inner">
       <div class="hero-text">
@@ -330,21 +510,30 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
         </p>
         <div class="hero-actions">
           <a href="{{ '/expedities' | relative_url }}" class="btn btn-primary">Mijn expedities</a>
-          <a href="{{ site.social.youtube }}" target="_blank" rel="noopener" class="btn btn-outline">▶ YouTube</a>
+          <a href="{{ '/fotos' | relative_url }}" class="btn btn-outline">Alle foto's</a>
         </div>
       </div>
       <div class="hero-visual">
         <div class="hero-logo-wrap">
-          <div class="steam-wrap">
+          <div class="steam-wrap" aria-hidden="true">
             <div class="steam-puff"></div>
             <div class="steam-puff"></div>
             <div class="steam-puff"></div>
           </div>
-          <img src="{{ '/assets/img/logo.webp' | relative_url }}" alt="Tijmen op Stoom" class="hero-logo">
+          <img src="{{ '/assets/img/logo-560.webp' | relative_url }}" alt="Tijmen op Stoom"
+               class="hero-logo" width="442" height="560">
         </div>
       </div>
     </div>
   </div>
+  {%- if hero_foto %}
+  <a class="hero-credit" href="{{ '/fotos/' | relative_url }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
+    </svg>
+    <span>{{ hero_foto.titel }}{% if hero_foto.locatie != "" %} · {{ hero_foto.locatie }}{% endif %}</span>
+  </a>
+  {%- endif %}
 </section>
 
 <!-- NUMBERS -->
@@ -356,7 +545,8 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
         <span class="number-label">Jaar oud</span>
       </div>
       <div class="number-item">
-        <span class="number-value">18+</span>
+        {%- assign hoogste = site.expedities | map: 'nummer' | compact | sort | last | default: site.expedities.size -%}
+        <span class="number-value">{{ hoogste }}+</span>
         <span class="number-label">Expedities</span>
       </div>
       <div class="number-item">
@@ -372,6 +562,11 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
 </div>
 
 <!-- VIDEO -->
+{%- comment -%}
+  _data/youtube.yml wordt dagelijks bijgewerkt door tools/haal-youtube.py via de
+  GitHub Action. Geen data? Dan tonen we gewoon de knop naar het kanaal.
+{%- endcomment -%}
+{%- assign nieuwste = site.data.youtube.videos | first -%}
 <section class="video-section">
   <div class="container">
     <div class="video-inner">
@@ -383,24 +578,71 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
           tot superschelle ICE's — abonneer je en mis niets.
         </p>
         <a href="{{ site.social.youtube }}" target="_blank" rel="noopener" class="btn btn-primary">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
           Abonneer op YouTube
         </a>
+
+        {%- if site.data.youtube.videos.size > 1 %}
+        <ul class="video-eerder">
+          {%- for v in site.data.youtube.videos offset:1 %}
+          <li>
+            <a href="https://www.youtube.com/watch?v={{ v.id }}" target="_blank" rel="noopener">
+              <time datetime="{{ v.gepubliceerd }}">{% include datum.html d=v.gepubliceerd kort=true %}</time>
+              <span>{{ v.titel }}</span>
+            </a>
+          </li>
+          {%- endfor %}
+        </ul>
+        {%- endif %}
       </div>
+
       <div>
+        {%- if nieuwste %}
+        <button type="button" class="video-facade" id="video-facade"
+                data-video="{{ nieuwste.id }}"
+                aria-label="Video afspelen: {{ nieuwste.titel | escape }}">
+          <img src="https://i.ytimg.com/vi/{{ nieuwste.id }}/maxresdefault.jpg"
+               onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/{{ nieuwste.id }}/hqdefault.jpg';"
+               alt="" width="1280" height="720" loading="lazy" referrerpolicy="no-referrer">
+          <span class="video-play" aria-hidden="true">
+            <svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2.2 34 .2 34 .2s-21.2 0-26.5 1.5a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 47.8 34 47.8 34 47.8s21.2 0 26.5-1.5a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34.2 45 24 27 13.8z"/></svg>
+          </span>
+          <span class="video-caption">
+            {{ nieuwste.titel }}
+            <small>{% include datum.html d=nieuwste.gepubliceerd %}</small>
+          </span>
+        </button>
+        {%- else %}
         <div class="video-wrapper">
-          <iframe
-            src="https://www.youtube.com/embed?listType=user_uploads&list=TijmenopStoom"
-            title="Laatste video van Tijmen op Stoom"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy">
-          </iframe>
+          <a href="{{ site.social.youtube }}" target="_blank" rel="noopener"
+             style="display:flex;align-items:center;justify-content:center;position:absolute;inset:0;color:var(--text-muted);">
+            Bekijk het kanaal op YouTube →
+          </a>
         </div>
+        {%- endif %}
       </div>
     </div>
   </div>
 </section>
+
+{%- if nieuwste %}
+<script>
+  // Pas na een klik laden we YouTube. Zo staat er geen tracker op de homepage
+  // en telt de speler niet mee in de laadtijd.
+  document.getElementById('video-facade').addEventListener('click', function () {
+    var wrap = document.createElement('div');
+    wrap.className = 'video-wrapper';
+    var frame = document.createElement('iframe');
+    frame.src = 'https://www.youtube-nocookie.com/embed/' + this.dataset.video + '?autoplay=1&rel=0';
+    frame.title = {{ nieuwste.titel | jsonify }};
+    frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    frame.allowFullscreen = true;
+    wrap.appendChild(frame);
+    this.replaceWith(wrap);
+    frame.focus();
+  }, { once: true });
+</script>
+{%- endif %}
 
 <!-- WELCOME -->
 <section class="welcome-section">
@@ -428,7 +670,7 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
           <span class="exp-num">{{ expeditie.nummer | default: forloop.index }}</span>
           <div>
             <div class="exp-card-title">{{ expeditie.title }}</div>
-            <div class="exp-card-date">{{ expeditie.date | date: "%-d %B %Y" }}</div>
+            <div class="exp-card-date">{% include datum.html d=expeditie.date %}</div>
           </div>
         </div>
         <div class="exp-card-body">

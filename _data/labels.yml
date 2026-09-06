@@ -1,0 +1,57 @@
+# Weergavenamen voor de filterwaarden in _data/fotos.yml.
+# Staat een waarde hier niet in, dan toont de site de sleutel zelf in hoofdletters.
+# Nieuwe vervoerder of type? Voeg hem hier toe, dan verschijnt hij netjes in het filter.
+
+vervoerder:
+  ns:              "NS"
+  db:              "DB"
+  vsm:             "VSM"
+  spoorwegmuseum:  "Het Spoorwegmuseum"
+  sgb:             "Stoomtrein Goes-Borsele"
+  hsb:             "Harzer Schmalspurbahnen"
+  rhb:             "Rhätische Bahn"
+  obb:             "ÖBB"
+  bem:             "Bayerisches Eisenbahnmuseum"
+  dbmuseum:        "DB Museum"
+  bwb:             "Bregenzerwaldbahn"
+  vsoe:            "Orient-Express"
+  thalys:          "Thalys"
+  rheincargo:      "RheinCargo"
+
+type:
+  stoom:         "Stoomloc"
+  e-loc:         "Elektrische loc"
+  diesel:        "Dieselloc"
+  ice:           "ICE"
+  icng:          "ICNG"
+  hogesnelheid:  "Hogesnelheidstrein"
+  motorwagen:    "Motorrijtuig"
+  rijtuig:       "Rijtuig"
+  goederen:      "Goederentrein"
+  br193:         "BR 193"
+  br52:          "BR 52"
+  flirt:         "Flirt"
+  anders:        "Anders"
+
+land:
+  nl: "Nederland"
+  de: "Duitsland"
+  ch: "Zwitserland"
+  at: "Oostenrijk"
+  be: "België"
+
+# Jekyll's date-filter geeft alleen Engelse maandnamen; _includes/datum.html
+# vertaalt via deze lijst (index 0 = januari).
+maanden:
+  - januari
+  - februari
+  - maart
+  - april
+  - mei
+  - juni
+  - juli
+  - augustus
+  - september
+  - oktober
+  - november
+  - december

@@ -1,23 +1,748 @@
-# Fotodatabase — voeg hier nieuwe foto's toe
-# Sla foto's op in: assets/fotos/
+# Fotodatabase — Tijmen op Stoom
 #
-# Velden:
-#   bestand:      bestandsnaam in assets/fotos/ (verplicht)
-#   titel:        korte titel (verplicht)
-#   vervoerder:   ns | db | vsm | spoorwegmuseum | (leeg)
-#   evenement:    naam van evenement, bv. "Stoomdag VSM 2024"
-#   type:         br193 | br52 | flirt | ice | icng | e-loc | diesel | stoom | anders
-#   locatie:      vrije tekst, bv. "Utrecht Centraal"
-#   fotograaf:    naam fotograaf
-#   datum:        YYYY-MM-DD formaat
-#   beschrijving: optionele caption
+# Nieuwe foto's toevoegen? Zet de originelen in een map en draai:
+#     python3 tools/foto-import.py <map>
+# Dat maakt de WebP-varianten in assets/fotos/ en print kant-en-klare
+# regels voor dit bestand. Vul daarna titel, type en locatie aan.
+#
+# Velden
+#   bestand      bestandsnaam in assets/fotos/ (verplicht) — de -thumb.webp
+#                variant wordt automatisch gebruikt in de grid
+#   titel        korte titel (verplicht)
+#   vervoerder   sleutel uit _data/labels.yml > vervoerder
+#   type         sleutel uit _data/labels.yml > type
+#   land         nl | de | ch | at | be
+#   evenement    vrije tekst; moet exact matchen met fotos_evenement
+#                in een expeditie om daar te verschijnen
+#   locatie      vrije tekst
+#   datum        YYYY-MM-DD
+#   beschrijving caption in de lightbox
+#   breedte      pixelmaten van de grote variant (voorkomt layout-shift)
+#   hoogte
+#   hero         true = mag als headerfoto op de homepage gekozen worden
+#                (alleen liggende foto's)
+#   fotograaf    optioneel; leeg = site.author.name
+#
+# Filters op /fotos/ worden uit deze data opgebouwd — een nieuwe waarde
+# verschijnt vanzelf in het keuzemenu zodra hij in _data/labels.yml staat.
 
-- bestand:      "voorbeeld.jpg"
-  titel:        "Voorbeeldfoto"
-  vervoerder:   "ns"
+- bestand:      "2026-09-05-img1263.webp"
+  titel:        "Gouden avondlicht op Terug naar Toen"
+  vervoerder:   "vsm"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    "Terug naar Toen 2026"
+  locatie:      "Lieren (VSM-lijn)"
+  datum:        "2026-09-05"
+  beschrijving: "De laatste zon van de dag op de zilveren rijtuigen."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2026-09-04-img1246.webp"
+  titel:        "Stoomlocs in de schemering"
+  vervoerder:   "vsm"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    "Terug naar Toen 2026"
+  locatie:      "Lieren (VSM-lijn)"
+  datum:        "2026-09-04"
+  beschrijving: "Het wordt donker en de locs staan nog altijd onder stoom."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2026-09-04-img1231.webp"
+  titel:        "23 076 met dubbele tractie"
+  vervoerder:   "vsm"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    "Terug naar Toen 2026"
+  locatie:      "Lieren (VSM-lijn)"
+  datum:        "2026-09-04"
+  beschrijving: "Twee stoomlocs voor één trein. Dubbel zoveel rook, dubbel zoveel geluid."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2026-09-04-img1224.webp"
+  titel:        "Recht voor de 01 1075"
+  vervoerder:   "vsm"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    "Terug naar Toen 2026"
+  locatie:      "Lieren (VSM-lijn)"
+  datum:        "2026-09-04"
+  beschrijving: "Pal van voren. De rookkast is bijna net zo breed als het spoor."
+  breedte:      1350
+  hoogte:       1800
+  hero:         false
+- bestand:      "2026-09-04-img1216.webp"
+  titel:        "01 1075 in het veld"
+  vervoerder:   "vsm"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    "Terug naar Toen 2026"
+  locatie:      "Lieren (VSM-lijn)"
+  datum:        "2026-09-04"
+  beschrijving: "Van opzij zie je hoe groot de wielen van een sneltreinloc zijn."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2026-09-04-img1209.webp"
+  titel:        "01 1075 blaast stoom af"
+  vervoerder:   "vsm"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    "Terug naar Toen 2026"
+  locatie:      "Eerbeek"
+  datum:        "2026-09-04"
+  beschrijving: "Sissend en dampend staat de 01 1075 te wachten op het sein."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2026-08-01-img0867.webp"
+  titel:        "De Blokkendoos onderweg"
+  vervoerder:   "spoorwegmuseum"
+  type:         "motorwagen"
+  land:         "nl"
   evenement:    ""
-  type:         "br193"
+  locatie:      "Apeldoorn"
+  datum:        "2026-08-01"
+  beschrijving: "Het oudste elektrische treinstel van Nederland, bijna honderd jaar oud en nog steeds rijdend."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2026-05-10-img3308.webp"
+  titel:        "Stoomloc dendert over de overweg"
+  vervoerder:   "vsm"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Veluwelijn"
+  datum:        "2026-05-10"
+  beschrijving: "De bellen rinkelen, de bomen gaan dicht en dan komt hij: stoom over de gewone spoorlijn."
+  breedte:      1800
+  hoogte:       1012
+  hero:         true
+- bestand:      "2026-05-10-img3290.webp"
+  titel:        "Museumtreinstel en ICE passeren elkaar"
+  vervoerder:   "ns"
+  type:         "motorwagen"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Veluwelijn"
+  datum:        "2026-05-10"
+  beschrijving: "Oud en nieuw op hetzelfde spoor: een museumtreinstel naast een ICE."
+  breedte:      1800
+  hoogte:       1012
+  hero:         true
+- bestand:      "2026-05-03-img3235.webp"
+  titel:        "Knalgroene RheinCargo-loc met goederentrein"
+  vervoerder:   "rheincargo"
+  type:         "goederen"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Bonn Hauptbahnhof"
+  datum:        "2026-05-03"
+  beschrijving: "Limoengroen, niet te missen. Met een lange goederentrein erachter."
+  breedte:      1800
+  hoogte:       1012
+  hero:         true
+- bestand:      "2026-05-03-img3233.webp"
+  titel:        "Vectron in speciale beschildering"
+  vervoerder:   ""
+  type:         "e-loc"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Bonn Hauptbahnhof"
+  datum:        "2026-05-03"
+  beschrijving: "Een moderne Vectron met bergen op de zijkant geschilderd."
+  breedte:      1800
+  hoogte:       1012
+  hero:         true
+- bestand:      "2026-05-02-img3159.webp"
+  titel:        "Historisch stroomlijntreinstel"
+  vervoerder:   "dbmuseum"
+  type:         "motorwagen"
+  land:         "de"
+  evenement:    ""
+  locatie:      "DB Museum Koblenz-Lützel"
+  datum:        "2026-05-02"
+  beschrijving: "Knalrood, met ronde vormen uit de jaren dertig."
+  breedte:      1350
+  hoogte:       1800
+  hero:         false
+- bestand:      "2026-05-02-img3158.webp"
+  titel:        "103 001 onder de overkapping"
+  vervoerder:   "dbmuseum"
+  type:         "e-loc"
+  land:         "de"
+  evenement:    ""
+  locatie:      "DB Museum Koblenz-Lützel"
+  datum:        "2026-05-02"
+  beschrijving: "De allereerste serie-103, netjes droog onder een afdak."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2026-05-02-img3156.webp"
+  titel:        "Diesellocs op het museumterrein"
+  vervoerder:   "dbmuseum"
+  type:         "diesel"
+  land:         "de"
+  evenement:    ""
+  locatie:      "DB Museum Koblenz-Lützel"
+  datum:        "2026-05-02"
+  beschrijving: "Blauw-beige naast oranje-wit. Twee generaties diesel naast elkaar."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2026-05-02-img3146.webp"
+  titel:        "Stoomloc in het gras bij Koblenz"
+  vervoerder:   "dbmuseum"
+  type:         "stoom"
+  land:         "de"
+  evenement:    ""
+  locatie:      "DB Museum Koblenz-Lützel"
+  datum:        "2026-05-02"
+  beschrijving: "Buiten opgesteld in het hoge gras, met rode wielen in de zon."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2026-05-02-img3135.webp"
+  titel:        "Neus van de TEE"
+  vervoerder:   "dbmuseum"
+  type:         "motorwagen"
+  land:         "de"
+  evenement:    ""
+  locatie:      "DB Museum Koblenz-Lützel"
+  datum:        "2026-05-02"
+  beschrijving: "Recht van voren, met het TEE-logo groot op de neus."
+  breedte:      1350
+  hoogte:       1800
+  hero:         false
+- bestand:      "2026-05-02-img3125.webp"
+  titel:        "De TEE-dieseltrein VT 11.5"
+  vervoerder:   "dbmuseum"
+  type:         "motorwagen"
+  land:         "de"
+  evenement:    ""
+  locatie:      "DB Museum Koblenz-Lützel"
+  datum:        "2026-05-02"
+  beschrijving: "Rood met zilver en een puntige neus. Hiermee reisde je vroeger eersteklas door Europa."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2026-05-02-img3122.webp"
+  titel:        "DB 103 233-3 in oceaanblauw"
+  vervoerder:   "dbmuseum"
+  type:         "e-loc"
+  land:         "de"
+  evenement:    ""
+  locatie:      "DB Museum Koblenz-Lützel"
+  datum:        "2026-05-02"
+  beschrijving: "Blauw met beige. Dezelfde loc, maar in een heel andere jas."
+  breedte:      1350
+  hoogte:       1800
+  hero:         false
+- bestand:      "2026-05-01-img3027.webp"
+  titel:        "ÖBB 1020 012-9 in bloedsinaasappel"
+  vervoerder:   "bem"
+  type:         "e-loc"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Bayerisches Eisenbahnmuseum, Nördlingen"
+  datum:        "2026-05-01"
+  beschrijving: "Fel oranjerood, de kleur die de ÖBB jarenlang gebruikte."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2026-05-01-img3025.webp"
+  titel:        "Het groene Krokodil 1020"
+  vervoerder:   "bem"
+  type:         "e-loc"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Bayerisches Eisenbahnmuseum, Nördlingen"
+  datum:        "2026-05-01"
+  beschrijving: "De Oostenrijkse 1020 — familie van het Duitse E94, met dezelfde krokodillenneus."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2026-05-01-img3023.webp"
+  titel:        "Stoomloc 22 064 in Nördlingen"
+  vervoerder:   "bem"
+  type:         "stoom"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Bayerisches Eisenbahnmuseum, Nördlingen"
+  datum:        "2026-05-01"
+  beschrijving: "De 22 064 staat buiten opgesteld tussen de rijtuigen."
+  breedte:      1350
+  hoogte:       1800
+  hero:         false
+- bestand:      "2026-05-01-img3020.webp"
+  titel:        "Tijmen bij de TEE 103"
+  vervoerder:   "bem"
+  type:         "e-loc"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Bayerisches Eisenbahnmuseum, Nördlingen"
+  datum:        "2026-05-01"
+  beschrijving: "De 103 in de rood-crème kleuren van de Trans Europ Express."
+  breedte:      1350
+  hoogte:       1800
+  hero:         false
+- bestand:      "2026-05-01-img2971.webp"
+  titel:        "Stoomloc op Augsburg Hauptbahnhof"
+  vervoerder:   ""
+  type:         "stoom"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Augsburg Hauptbahnhof"
+  datum:        "2026-05-01"
+  beschrijving: "Zwart en glimmend tussen de bovenleidingen van een groot station."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2026-04-11-img2577.webp"
+  titel:        "50 3636-3 voor de loods in Dresden"
+  vervoerder:   ""
+  type:         "stoom"
+  land:         "de"
+  evenement:    "Dresdner Dampfloktreffen 2026"
+  locatie:      "Dresden"
+  datum:        "2026-04-11"
+  beschrijving: "Voor de oude locloods staat de 50 3636-3 te wachten, met bezoekers eromheen."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2025-08-11-img0738.webp"
+  titel:        "99 247 op de top van de Brocken"
+  vervoerder:   "hsb"
+  type:         "stoom"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Brocken (Harz)"
+  datum:        "2025-08-11"
+  beschrijving: "1.141 meter hoog, en de stoomtrein rijdt er gewoon naartoe."
+  breedte:      1800
+  hoogte:       1012
+  hero:         true
+- bestand:      "2025-08-11-img0721.webp"
+  titel:        "De rode 199 861-6 op het perron"
+  vervoerder:   "hsb"
+  type:         "diesel"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Harz"
+  datum:        "2025-08-11"
+  beschrijving: "Van opzij zie je pas hoe lang zo'n diesel eigenlijk is."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2025-08-11-img0720.webp"
+  titel:        "HSB 199 861-6 klaar voor vertrek"
+  vervoerder:   "hsb"
+  type:         "diesel"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Harz"
+  datum:        "2025-08-11"
+  beschrijving: "Donkerrood met een crèmekleurige band. De diesel neemt het over waar geen stoom rijdt."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2025-08-10-img6914.webp"
+  titel:        "HSB 99 236 op smalspoor"
+  vervoerder:   "hsb"
+  type:         "stoom"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Harz"
+  datum:        "2025-08-10"
+  beschrijving: "Een echte smalspoorstoomloc. De rails liggen dichter bij elkaar dan normaal."
+  breedte:      1800
+  hoogte:       1012
+  hero:         true
+- bestand:      "2025-08-10-img6886.webp"
+  titel:        "Stoomtrein van de Harzer Schmalspurbahnen"
+  vervoerder:   "hsb"
+  type:         "stoom"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Harz"
+  datum:        "2025-08-10"
+  beschrijving: "Rood-crème rijtuigen achter een stoomloc, klaar voor de klim de bergen in."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2025-08-08-img0546.webp"
+  titel:        "E04 01 op Leipzig Hauptbahnhof"
+  vervoerder:   ""
+  type:         "e-loc"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Leipzig Hauptbahnhof"
+  datum:        "2025-08-08"
+  beschrijving: "Een van de oudste Duitse elektrische locs, nog altijd in het groen."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2025-08-08-img0545.webp"
+  titel:        "Stroomlijntrein in Leipzig"
+  vervoerder:   ""
+  type:         "motorwagen"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Leipzig Hauptbahnhof"
+  datum:        "2025-08-08"
+  beschrijving: "Violet met crème, en helemaal rond gevormd om sneller te kunnen rijden."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2025-08-08-img0544.webp"
+  titel:        "Het Krokodil E94 056"
+  vervoerder:   ""
+  type:         "e-loc"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Leipzig Hauptbahnhof"
+  datum:        "2025-08-08"
+  beschrijving: "Groen, lang en met een neus aan twee kanten. Daarom heet hij het Krokodil."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2025-08-08-img0543.webp"
+  titel:        "52 5448-7 onder de kap van Leipzig"
+  vervoerder:   ""
+  type:         "stoom"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Leipzig Hauptbahnhof"
+  datum:        "2025-08-08"
+  beschrijving: "Een stoomloc midden in het grootste kopstation van Europa."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2025-07-18-img0401.webp"
+  titel:        "NS 1656 op het museumterrein"
+  vervoerder:   "ns"
+  type:         "e-loc"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Het Spoorwegmuseum, Utrecht"
+  datum:        "2025-07-18"
+  beschrijving: "Geel, grijs en zwart. Een Alsthom-loc zoals ze vroeger door heel Nederland reden."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2025-07-18-img0400.webp"
+  titel:        "Tijmen op de NS 1656"
+  vervoerder:   "ns"
+  type:         "e-loc"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Het Spoorwegmuseum, Utrecht"
+  datum:        "2025-07-18"
+  beschrijving: "De gele kop van de 1656 van dichtbij, en ik erbij op de treeplank."
+  breedte:      1350
+  hoogte:       1800
+  hero:         false
+- bestand:      "2025-05-29-img0025.webp"
+  titel:        "VSM 23 076 op de Veluwe"
+  vervoerder:   "vsm"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Lieren (VSM-lijn)"
+  datum:        "2025-05-29"
+  beschrijving: "De 23 076 met zijn tender. Mijn lievelingsloc van de VSM."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2025-04-24-img7388.webp"
+  titel:        "De Adler en een ICE in het DB Museum"
+  vervoerder:   "dbmuseum"
+  type:         "stoom"
+  land:         "de"
+  evenement:    ""
+  locatie:      "DB Museum Neurenberg"
+  datum:        "2025-04-24"
+  beschrijving: "De Adler uit 1835 staat pal voor een moderne ICE. Bijna tweehonderd jaar spoor in één blik."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2025-04-12-img7359.webp"
+  titel:        "Twee ICE's naast elkaar op Amsterdam Centraal"
+  vervoerder:   "db"
+  type:         "ice"
+  land:         "nl"
+  evenement:    ""
   locatie:      "Amsterdam Centraal"
-  fotograaf:    "Tijmen"
-  datum:        "2024-01-01"
-  beschrijving: "Dit is een voorbeeldfoto. Vervang door echte foto's."
+  datum:        "2025-04-12"
+  beschrijving: "Twee neuzen naast elkaar op het perron, en een gele NS-trein ernaast."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2025-02-09-img7054.webp"
+  titel:        "In de grote hal van het Spoorwegmuseum"
+  vervoerder:   "spoorwegmuseum"
+  type:         "anders"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Het Spoorwegmuseum, Utrecht"
+  datum:        "2025-02-09"
+  beschrijving: "Een groen motorrijtuig naast een enorme groene stoomloc, onder de oude kap."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2025-02-09-img7041.webp"
+  titel:        "Klimmen op een oude gele trein"
+  vervoerder:   "spoorwegmuseum"
+  type:         "anders"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Het Spoorwegmuseum, Utrecht"
+  datum:        "2025-02-09"
+  beschrijving: "Even omhoog op het trapje. Van dichtbij is zo'n neus reusachtig."
+  breedte:      1350
+  hoogte:       1800
+  hero:         false
+- bestand:      "2025-02-02-img7002.webp"
+  titel:        "ICE bij Amersfoort"
+  vervoerder:   "db"
+  type:         "ice"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Amersfoort"
+  datum:        "2025-02-02"
+  beschrijving: "Wit met een rode streep. De ICE onderweg naar Duitsland."
+  breedte:      1800
+  hoogte:       1012
+  hero:         true
+- bestand:      "2024-09-07-img6335.webp"
+  titel:        "De 50 3654 in het avondlicht"
+  vervoerder:   "vsm"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    "Terug naar Toen 2024"
+  locatie:      "Lieren (VSM-lijn)"
+  datum:        "2024-09-07"
+  beschrijving: "Nog één keer voorbij voordat het donker wordt."
+  breedte:      1800
+  hoogte:       1012
+  hero:         true
+- bestand:      "2024-09-07-img6334.webp"
+  titel:        "Zonsondergang met de 50 3654"
+  vervoerder:   "vsm"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    "Terug naar Toen 2024"
+  locatie:      "Lieren (VSM-lijn)"
+  datum:        "2024-09-07"
+  beschrijving: "De zon zakt achter het maïsveld terwijl de stoomtrein nadert."
+  breedte:      1800
+  hoogte:       1012
+  hero:         true
+- bestand:      "2024-09-07-img6330.webp"
+  titel:        "52 3879 stoomt langs het sein"
+  vervoerder:   "vsm"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    "Terug naar Toen 2024"
+  locatie:      "Lieren (VSM-lijn)"
+  datum:        "2024-09-07"
+  beschrijving: "De BR 52 komt met een goederentrein voorbij, vlak naast het oude armsein."
+  breedte:      1800
+  hoogte:       1012
+  hero:         true
+- bestand:      "2024-09-06-img6325.webp"
+  titel:        "Stoomloc met rode wielen"
+  vervoerder:   "vsm"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    "Terug naar Toen 2024"
+  locatie:      "Lieren (VSM-lijn)"
+  datum:        "2024-09-06"
+  beschrijving: "Zwart met knalrode drijfwerken — precies zoals een stoomloc eruit hoort te zien."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2024-09-06-img6323.webp"
+  titel:        "Rij stoomlocs op Terug naar Toen"
+  vervoerder:   "vsm"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    "Terug naar Toen 2024"
+  locatie:      "Lieren (VSM-lijn)"
+  datum:        "2024-09-06"
+  beschrijving: "De ene stoomloc na de andere staat opgesteld. Overal rook en het geluid van sissende stoom."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2024-07-25-img5969.webp"
+  titel:        "Pullmanrijtuig 4141 van de Orient-Express"
+  vervoerder:   "vsoe"
+  type:         "rijtuig"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Amsterdam Centraal"
+  datum:        "2024-07-25"
+  beschrijving: "Crème en blauw, met een gouden ster op de zijkant."
+  breedte:      1800
+  hoogte:       1012
+  hero:         true
+- bestand:      "2024-07-25-img5962.webp"
+  titel:        "Slaaprijtuig 3544 van de Orient-Express"
+  vervoerder:   "vsoe"
+  type:         "rijtuig"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Amsterdam Centraal"
+  datum:        "2024-07-25"
+  beschrijving: "Schlafwagen No 3544 — hier slaap je onderweg naar Venetië."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2024-07-25-img5957.webp"
+  titel:        "Venice Simplon-Orient-Express op Amsterdam Centraal"
+  vervoerder:   "vsoe"
+  type:         "rijtuig"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Amsterdam Centraal"
+  datum:        "2024-07-25"
+  beschrijving: "Donkerblauwe rijtuigen met gouden letters. De beroemdste trein van Europa, gewoon op spoor 2."
+  breedte:      1800
+  hoogte:       1012
+  hero:         true
+- bestand:      "2024-06-14-img5669.webp"
+  titel:        "Tijmen bij De Arend"
+  vervoerder:   "spoorwegmuseum"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Het Spoorwegmuseum, Utrecht"
+  datum:        "2024-06-14"
+  beschrijving: "De replica van De Arend uit 1839, de eerste trein van Nederland. En daar sta ik dan, piepklein ernaast."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2023-07-29-img1456.webp"
+  titel:        "Rode trein langs het bergmeer"
+  vervoerder:   "rhb"
+  type:         "e-loc"
+  land:         "ch"
+  evenement:    ""
+  locatie:      "Graubünden"
+  datum:        "2023-07-29"
+  beschrijving: "Hoog in de bergen rijdt de rode trein langs een spiegelglad meer."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2023-07-28-img2889.webp"
+  titel:        "RhB 616 in Filisur"
+  vervoerder:   "rhb"
+  type:         "e-loc"
+  land:         "ch"
+  evenement:    ""
+  locatie:      "Filisur (Graubünden)"
+  datum:        "2023-07-28"
+  beschrijving: "De rode Rhätische Bahn stopt in het bergstation Filisur."
+  breedte:      1800
+  hoogte:       1012
+  hero:         true
+- bestand:      "2023-07-26-img2862.webp"
+  titel:        "Diesel en stoom naast elkaar"
+  vervoerder:   "bwb"
+  type:         "stoom"
+  land:         "at"
+  evenement:    ""
+  locatie:      "Bezau (Vorarlberg)"
+  datum:        "2023-07-26"
+  beschrijving: "Rode diesel onder de kap, zwarte stoomloc ernaast met een dikke pluim."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2023-07-26-img2855.webp"
+  titel:        "Stoomloc op de draaischijf in de Bregenzerwald"
+  vervoerder:   "bwb"
+  type:         "stoom"
+  land:         "at"
+  evenement:    ""
+  locatie:      "Bezau (Vorarlberg)"
+  datum:        "2023-07-26"
+  beschrijving: "Een kleine smalspoorstoomloc draait op de schijf, met de bergen op de achtergrond."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2023-05-19-img2270.webp"
+  titel:        "Thomas de Stoomlocomotief"
+  vervoerder:   "spoorwegmuseum"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Het Spoorwegmuseum, Utrecht"
+  datum:        "2023-05-19"
+  beschrijving: "Thomas met zijn grote gezicht. Iedereen kent hem, en toch blijft hij bijzonder van dichtbij."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2021-08-27-img0957.webp"
+  titel:        "Thalys onder de kap van Amsterdam Centraal"
+  vervoerder:   "thalys"
+  type:         "hogesnelheid"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Amsterdam Centraal"
+  datum:        "2021-08-27"
+  beschrijving: "De bordeauxrode Thalys staat klaar voor de rit naar Parijs."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2021-08-26-img0924.webp"
+  titel:        "Oude loc met graffiti"
+  vervoerder:   ""
+  type:         "anders"
+  land:         "nl"
+  evenement:    ""
+  locatie:      ""
+  datum:        "2021-08-26"
+  beschrijving: "Een afgeschreven loc die op betere tijden wacht. Iemand heeft er zijn naam op gezet."
+  breedte:      1350
+  hoogte:       1800
+  hero:         false
+- bestand:      "2021-07-11-img0704.webp"
+  titel:        "NS-loc aan de Duitse grens"
+  vervoerder:   "ns"
+  type:         "e-loc"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Bad Bentheim"
+  datum:        "2021-07-11"
+  beschrijving: "Geel en grijs op een Duits perron — hier wisselen de treinen van land."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2021-07-11-img0700.webp"
+  titel:        "DB 101 138-6 op spoor B in Bad Bentheim"
+  vervoerder:   "db"
+  type:         "e-loc"
+  land:         "de"
+  evenement:    ""
+  locatie:      "Bad Bentheim"
+  datum:        "2021-07-11"
+  beschrijving: "Vlak over de grens wacht de rode DB 101 op vertrek."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true
+- bestand:      "2019-07-16-img4728.webp"
+  titel:        "US Army 4389 bij de Stoomtrein Goes-Borsele"
+  vervoerder:   "sgb"
+  type:         "stoom"
+  land:         "nl"
+  evenement:    ""
+  locatie:      "Goes"
+  datum:        "2019-07-16"
+  beschrijving: "Een zwarte legerstoomloc van de Transportation Corps. Nummer 4389, gebouwd voor het leger en nu museumtrein."
+  breedte:      1800
+  hoogte:       1350
+  hero:         true

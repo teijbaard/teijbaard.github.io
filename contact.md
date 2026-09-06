@@ -2,6 +2,7 @@
 layout: default
 title: "Contact"
 description: "Neem contact op met Tijmen op Stoom. Dit platform wordt beheerd door de ouders van Tijmen."
+permalink: /contact/
 ---
 
 <style>
@@ -75,6 +76,23 @@ description: "Neem contact op met Tijmen op Stoom. Dit platform wordt beheerd do
     box-shadow: 0 0 0 3px rgba(192,78,26,0.1);
   }
   .contact-form textarea { resize: vertical; min-height: 130px; }
+  .form-honey {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .form-fout {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--rust-dark);
+    background: var(--rust-light);
+    border: 1px solid var(--rust-mid);
+    border-radius: var(--radius);
+    padding: 0.6rem 0.85rem;
+  }
+  .form-fout[hidden] { display: none; }
   .contact-form .form-group { margin-bottom: 1.25rem; }
   .contact-form .form-group:last-of-type { margin-bottom: 1.5rem; }
   .contact-form .submit-btn {
@@ -166,16 +184,47 @@ description: "Neem contact op met Tijmen op Stoom. Dit platform wordt beheerd do
           <label for="message">Bericht</label>
           <textarea id="message" name="message" required placeholder="Schrijf hier je bericht…"></textarea>
         </div>
+        <!-- Spamval: onzichtbaar voor mensen, bots vullen hem meestal wel in.
+             Het veld wordt nooit meegestuurd; het bericht wordt dan stil genegeerd. -->
+        <div class="form-honey" aria-hidden="true">
+          <label for="website">Website</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
         <button id="submit-btn" type="submit" class="btn btn-primary submit-btn">Versturen</button>
       </form>
+      <p class="form-fout" id="form-fout" hidden role="alert">
+        Het versturen lukte niet. Probeer het zo nog eens, of stuur een DM op Instagram.
+      </p>
       <script>
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
           e.preventDefault();
-          var btn = document.getElementById('submit-btn');
+          var form = this;
+          var btn  = document.getElementById('submit-btn');
+          var fout = document.getElementById('form-fout');
+          var bedankt = {{ '/bedankt/' | relative_url | jsonify }};
+
+          // Spamval gevuld? Doen alsof het gelukt is, maar niets versturen.
+          if (form.website.value) { window.location.href = bedankt; return; }
+
+          var data = new FormData(form);
+          data.delete('website');
+
+          fout.hidden = true;
           btn.disabled = true;
           btn.textContent = 'Bezig met verzenden…';
-          fetch(this.action, { method: 'POST', body: new FormData(this) })
-            .finally(function() { window.location.href = '/bedankt/'; });
+
+          fetch(form.action, { method: 'POST', body: data })
+            .then(function (r) {
+              // Alleen doorsturen als het écht gelukt is — anders denkt de
+              // bezoeker dat het bericht aankwam terwijl het verdween.
+              if (!r.ok) throw new Error(r.status);
+              window.location.href = bedankt;
+            })
+            .catch(function () {
+              fout.hidden = false;
+              btn.disabled = false;
+              btn.textContent = 'Opnieuw versturen';
+            });
         });
       </script>
     </div>
