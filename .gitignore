@@ -7,3 +7,5 @@ graphify-out/
 
 # Persoonlijke Claude Code-instellingen (bevat lokale paden)
 .claude/settings.local.json
+__pycache__/
+*.pyc

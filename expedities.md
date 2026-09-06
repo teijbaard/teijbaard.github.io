@@ -85,7 +85,7 @@ permalink: /expedities/
   }
   .exp-list-excerpt {
     font-size: 0.875rem;
-    color: var(--text-subtle);
+    color: var(--text-muted);
     margin-top: 0.3rem;
     line-height: 1.6;
   }

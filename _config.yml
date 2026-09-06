@@ -54,6 +54,13 @@ highlighter: rouge
 encoding: utf-8
 
 # Plugins (supported on GitHub Pages)
+# jekyll-feed maakt standaard een feed van posts; die zijn er niet. Zonder deze
+# regel adverteert elke pagina een Atom-feed met nul items.
+feed:
+  collections:
+    expedities:
+      path: "/expedities.xml"
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag

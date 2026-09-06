@@ -49,7 +49,7 @@ permalink: /privacy/
   .privacy-meta {
     display: inline-block;
     font-size: 0.8rem;
-    color: var(--text-subtle);
+    color: var(--text-muted);
     margin-bottom: 3rem;
   }
 </style>

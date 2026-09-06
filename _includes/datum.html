@@ -8,9 +8,13 @@
 {%- else -%}
 {%- assign maand = include.d | date: "%-m" | minus: 1 -%}
 {%- assign naam = site.data.labels.maanden[maand] -%}
+{%- if maand < 0 or maand > 11 -%}
+{{ include.d }}
+{%- else -%}
 {%- if include.kort -%}
-{{ include.d | date: "%-d" }} {{ naam | slice: 0, 3 }}
+{{ include.d | date: "%-d" }} {{ site.data.labels.maanden_kort[maand] }}
 {%- else -%}
 {{ include.d | date: "%-d" }} {{ naam }} {{ include.d | date: "%Y" }}
+{%- endif -%}
 {%- endif -%}
 {%- endif -%}

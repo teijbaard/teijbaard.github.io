@@ -3,6 +3,7 @@ layout: default
 title: "Bedankt!"
 description: "Je bericht is ontvangen. We nemen zo snel mogelijk contact op."
 permalink: /bedankt/
+sitemap: false
 ---
 
 <style>

@@ -12,7 +12,9 @@
 
   /* Text */
   --text:         #1C1A17;
-  --text-muted:   #7A726A;
+  --text-muted:   #736C64;   /* 4,72:1 op --bg — was #7A726A met 4,31:1 */
+  /* Alleen voor decoratie (placeholder-iconen). Op deze lichte ondergrond haalt een
+     derde, lichtere teksttint de 4,5:1 niet; gebruik --text-muted voor echte tekst. */
   --text-subtle:  #A89E95;
 
   /* Accent: roest/koper — stoomtrein */
@@ -42,7 +44,12 @@
    RESET
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  /* De header plakt op 68px; zonder deze marge belandt een ankerdoel eronder. */
+  scroll-padding-top: 84px;
+}
 
 body {
   font-family: 'Inter', sans-serif;
@@ -395,7 +402,7 @@ main { min-height: 60vh; }
 .footer-bottom p {
   font-size: 0.8rem;
   margin: 0;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.55);   /* was 0.3 — dat haalde 2,72:1 */
 }
 .footer-bottom a { color: rgba(255,255,255,0.5); }
 .footer-bottom a:hover { color: #fff; }
@@ -477,7 +484,6 @@ main { min-height: 60vh; }
 :focus-visible {
   outline: 3px solid var(--rust);
   outline-offset: 2px;
-  border-radius: 3px;
 }
 
 /* ============================================================
@@ -517,8 +523,10 @@ main { min-height: 60vh; }
 }
 .foto-open:focus-visible { outline: none; }
 .foto-open:focus-visible::after {
+  /* Naar binnen tekenen: .foto-card heeft overflow:hidden, dus een positieve
+     offset valt buiten de kaart en wordt volledig weggeknipt. */
   outline: 3px solid var(--rust);
-  outline-offset: 2px;
+  outline-offset: -3px;
   border-radius: var(--radius-lg);
 }
 
@@ -528,14 +536,14 @@ main { min-height: 60vh; }
 .lightbox {
   position: fixed;
   inset: 0;
-  z-index: 999;
+  z-index: 10000;   /* boven de cookiebanner, die op 9999 zit */
   background: rgba(28,26,23,0.92);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
 }
-/* Moet ná de display:flex hierboven staan, anders wint die van [hidden]. */
+/* Moeten ná de display:flex-regels staan, anders wint die van [hidden]. */
 .lightbox[hidden] { display: none; }
 
 .lightbox-inner {
@@ -582,6 +590,11 @@ main { min-height: 60vh; }
 .lightbox-nav:hover { background: var(--rust); }
 .lightbox-close svg { width: 16px; height: 16px; }
 .lightbox-nav svg   { width: 20px; height: 20px; }
+
+/* Zonder deze regel blijven de pijlen staan bij één foto: de class-regel
+   display:flex hierboven wint van de UA-regel [hidden]{display:none}. */
+.lightbox-nav[hidden],
+.lightbox-close[hidden] { display: none; }
 
 .lightbox-close { top: 0.75rem; right: 0.75rem; }
 .lightbox-nav   { top: 50%; transform: translateY(-50%); }

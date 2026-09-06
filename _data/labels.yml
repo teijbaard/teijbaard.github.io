@@ -42,6 +42,22 @@ land:
 
 # Jekyll's date-filter geeft alleen Engelse maandnamen; _includes/datum.html
 # vertaalt via deze lijst (index 0 = januari).
+# Voluit voor lopende tekst, afgekort voor de compacte notatie. Los afgekort,
+# want simpelweg de eerste drie letters nemen maakt van maart "maa".
+maanden_kort:
+  - jan
+  - feb
+  - mrt
+  - apr
+  - mei
+  - jun
+  - jul
+  - aug
+  - sep
+  - okt
+  - nov
+  - dec
+
 maanden:
   - januari
   - februari

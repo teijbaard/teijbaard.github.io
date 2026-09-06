@@ -8,10 +8,12 @@
     Deelplaatje: op de homepage de foto die nu in de header staat, elders het logo.
     Een pagina kan het overrulen met `image:` in de front matter.
   {%- endcomment -%}
+  {%- comment -%} Alleen gebruiken als de headerfoto echt nog in fotos.yml staat. {%- endcomment -%}
+  {%- assign hero_bestaat = site.data.fotos | where: 'bestand', site.data.hero.bestand | first -%}
   {%- assign og_image = '/assets/img/logo.webp' -%}
   {%- if page.image -%}
     {%- assign og_image = page.image -%}
-  {%- elsif page.url == '/' and site.data.hero.bestand -%}
+  {%- elsif page.url == '/' and hero_bestaat -%}
     {%- assign og_image = '/assets/fotos/' | append: site.data.hero.bestand -%}
   {%- endif -%}
   {%- capture paginatitel -%}{% if page.title and page.url != '/' %}{{ page.title }} | {% endif %}{{ site.title }}{%- endcapture -%}
@@ -45,14 +47,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,700;0,800;1,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-  {%- if page.url == '/' and site.data.hero.bestand %}
+  {%- if page.url == '/' and hero_bestaat %}
   <link rel="preload" as="image" fetchpriority="high"
         href="{{ '/assets/fotos/' | append: site.data.hero.bestand | relative_url }}">
   {%- endif %}
 
   <link rel="icon" type="image/webp" href="{{ '/assets/img/logo-140.webp' | relative_url }}">
   <link rel="apple-touch-icon" href="{{ '/assets/img/logo-140.webp' | relative_url }}">
-  {% feed_meta %}
+  {%- comment -%}
+    feed_meta wijst naar /feed.xml, en dat is de postsfeed — die is leeg, want de
+    site heeft geen posts. Daarom handmatig naar de expeditiefeed verwijzen.
+  {%- endcomment -%}
+  <link rel="alternate" type="application/atom+xml"
+        href="{{ '/expedities.xml' | relative_url }}"
+        title="Expedities — {{ site.title }}">
 
   <script type="application/ld+json">
   {

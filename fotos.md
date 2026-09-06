@@ -355,7 +355,7 @@ permalink: /fotos/
         <label class="filter-label" for="filter-vervoerder">Vervoerder</label>
         <select class="filter-select" id="filter-vervoerder" data-veld="vervoerder">
           <option value="">Alle</option>
-          {%- assign vervoerders = fotos | map: "vervoerder" | uniq | sort -%}
+          {%- assign vervoerders = fotos | map: "vervoerder" | compact | uniq | sort -%}
           {%- for v in vervoerders -%}
             {%- if v != "" and v -%}
               {%- assign aantal = fotos | where: "vervoerder", v | size -%}
@@ -369,7 +369,7 @@ permalink: /fotos/
         <label class="filter-label" for="filter-type">Type</label>
         <select class="filter-select" id="filter-type" data-veld="type">
           <option value="">Alle</option>
-          {%- assign types = fotos | map: "type" | uniq | sort -%}
+          {%- assign types = fotos | map: "type" | compact | uniq | sort -%}
           {%- for ty in types -%}
             {%- if ty != "" and ty -%}
               {%- assign aantal = fotos | where: "type", ty | size -%}
@@ -383,7 +383,7 @@ permalink: /fotos/
         <label class="filter-label" for="filter-land">Land</label>
         <select class="filter-select" id="filter-land" data-veld="land">
           <option value="">Alle</option>
-          {%- assign landen = fotos | map: "land" | uniq | sort -%}
+          {%- assign landen = fotos | map: "land" | compact | uniq | sort -%}
           {%- for l in landen -%}
             {%- if l != "" and l -%}
               {%- assign aantal = fotos | where: "land", l | size -%}
@@ -397,7 +397,7 @@ permalink: /fotos/
         <label class="filter-label" for="filter-evenement">Evenement</label>
         <select class="filter-select" id="filter-evenement" data-veld="evenement">
           <option value="">Alle</option>
-          {%- assign evenementen = fotos | map: "evenement" | uniq | sort -%}
+          {%- assign evenementen = fotos | map: "evenement" | compact | uniq | sort -%}
           {%- for ev in evenementen -%}
             {%- if ev != "" and ev -%}
               {%- assign aantal = fotos | where: "evenement", ev | size -%}
@@ -434,6 +434,7 @@ permalink: /fotos/
       Daarna kiest de wekelijkse Action zelf een andere.
     </div>
 
+    <h2 class="sr-only">Alle foto's</h2>
     <div class="foto-grid" id="foto-grid">
       {%- for foto in fotos %}
       {%- assign basis = foto.bestand | split: ".webp" | first %}
@@ -450,7 +451,7 @@ permalink: /fotos/
                srcset="{{ '/assets/fotos/' | append: basis | append: '-thumb.webp' | relative_url }} 640w,
                        {{ '/assets/fotos/' | append: foto.bestand | relative_url }} 1800w"
                sizes="(max-width: 400px) 100vw, (max-width: 600px) 50vw, (max-width: 1080px) 33vw, 340px"
-               alt="{{ foto.titel }}"
+               alt="{{ foto.titel | escape }}"
                width="{{ foto.breedte }}" height="{{ foto.hoogte }}"
                loading="lazy" decoding="async">
           {%- if foto.hero %}
@@ -565,6 +566,9 @@ permalink: /fotos/
     var p = new URLSearchParams();
     selects.forEach(function (s) { if (s.value) p.set(s.dataset.veld, s.value); });
     if (zoekveld.value.trim()) p.set('zoek', zoekveld.value.trim());
+    // Beheermodus vasthouden, anders verdwijnt hij bij de eerste filterwijziging
+    // en is de pagina niet meer als beheer-URL te delen of te herladen.
+    if (document.body.classList.contains('beheer')) p.set('beheer', '1');
     var q = p.toString();
     history.replaceState(null, '', q ? '?' + q : location.pathname);
   }

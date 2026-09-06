@@ -68,11 +68,22 @@ def main() -> int:
         return 1
 
     regels = []
+    gezien = {f.stem for f in OUT.glob("*.webp") if not f.stem.endswith("-thumb")}
     with tempfile.TemporaryDirectory() as td:
         for i, p in enumerate(bestanden, 1):
             datum = creatiedatum(p)
             nummer = re.sub(r"\D", "", p.stem) or f"{i:04d}"
             slug = f"{datum or '0000-00-00'}-img{nummer}"
+            # Twee foto's kunnen dezelfde datum en hetzelfde nummer hebben: IMG_0025.HEIC
+            # naast IMG_0025.JPG, of een tweede toestel. Zonder achtervoegsel zou de
+            # tweede de eerste overschrijven of stilzwijgend worden overgeslagen.
+            if slug in gezien:
+                n = 2
+                while f"{slug}-{n}" in gezien:
+                    n += 1
+                slug = f"{slug}-{n}"
+            gezien.add(slug)
+
             if (OUT / f"{slug}.webp").exists():
                 print(f"[{i}/{len(bestanden)}] {p.name} — bestaat al, overgeslagen")
                 continue

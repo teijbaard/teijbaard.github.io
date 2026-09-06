@@ -160,7 +160,7 @@ permalink: /over/
   }
   .moment-card-credits {
     font-size: 0.78rem;
-    color: var(--text-subtle);
+    color: var(--text-muted);
     margin-top: 0.75rem !important;
     font-style: italic;
   }

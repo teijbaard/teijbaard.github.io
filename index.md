@@ -288,7 +288,7 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
   .video-eerder time {
     flex-shrink: 0;
     font-variant-numeric: tabular-nums;
-    color: var(--text-subtle);
+    color: var(--text-muted);
   }
 
   /* =====================================================
@@ -382,7 +382,7 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
 
   .exp-card-date {
     font-size: 0.78rem;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.6);
     margin-top: 0.2rem;
   }
 
@@ -455,7 +455,8 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
      ===================================================== */
   @media (max-width: 768px) {
     .hero-inner    { grid-template-columns: 1fr; gap: 2.5rem; }
-    .hero-credit   { position: static; margin: 1.75rem auto 0; max-width: none; justify-content: center; }
+    /* relative, niet static: anders werkt z-index niet en valt de credit achter de scrim */
+    .hero-credit   { position: relative; margin: 1.75rem auto 0; max-width: none; justify-content: center; right: auto; bottom: auto; }
     .hero--foto    { padding: 3rem 0 2rem; }
     /* Smalle schermen: tekst staat over de volle breedte, dus een gelijkmatig
        verticaal waas in plaats van het horizontale verloop. */
@@ -471,7 +472,7 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
   }
 
   @media (max-width: 480px) {
-    .hero { padding: 3.5rem 0 3rem; }
+    .hero:not(.hero--foto) { padding: 3.5rem 0 3rem; }
     .numbers-inner { justify-content: flex-start; }
     .number-item { border-right: none; border-bottom: 1px solid var(--border); width: 50%; }
   }
@@ -531,7 +532,7 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
       <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
     </svg>
-    <span>{{ hero_foto.titel }}{% if hero_foto.locatie != "" %} · {{ hero_foto.locatie }}{% endif %}</span>
+    <span>{{ hero_foto.titel }}{% if hero_foto.locatie and hero_foto.locatie != "" %} · {{ hero_foto.locatie }}{% endif %}</span>
   </a>
   {%- endif %}
 </section>
@@ -608,7 +609,7 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
             <svg viewBox="0 0 68 48"><path fill="#f00" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2.2 34 .2 34 .2s-21.2 0-26.5 1.5a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 47.8 34 47.8 34 47.8s21.2 0 26.5-1.5a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"/><path fill="#fff" d="M27 34.2 45 24 27 13.8z"/></svg>
           </span>
           <span class="video-caption">
-            {{ nieuwste.titel }}
+            {{ nieuwste.titel | escape }}
             {%- if nieuwste.gepubliceerd != "" %}<small>{% include datum.html d=nieuwste.gepubliceerd %}</small>{% endif %}
           </span>
         </button>
@@ -664,7 +665,8 @@ description: "Ik ben Tijmen (8) en gek op treinen! Volg mijn avonturen langs sto
     </div>
 
     <div class="exp-grid">
-      {% for expeditie in site.expedities limit:3 %}
+      {%- assign recente = site.expedities | sort: 'date' | reverse -%}
+      {% for expeditie in recente limit:3 %}
       <a href="{{ expeditie.url | relative_url }}" class="exp-card">
         <div class="exp-card-head">
           <span class="exp-num">{{ expeditie.nummer | default: forloop.index }}</span>
