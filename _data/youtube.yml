@@ -1,9 +1,8 @@
 # Automatisch bijgewerkt door tools/haal-youtube.py — niet met de hand aanpassen.
 # De GitHub Action draait dit dagelijks; de homepage toont `videos[0]`.
 
-kanaal:     "TijmenopStoom"
 kanaal_id:  "UCmh2xBnD3JkSSCcbzsF9M4w"
-bijgewerkt: "2026-09-05T19:26:55Z"
+bijgewerkt: "2026-09-07T09:24:04Z"
 
 videos:
   - id:           "-2faB9IXTX4"
