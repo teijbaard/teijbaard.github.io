@@ -1,3 +1,16 @@
+# De site wordt één keer gebouwd en naar twee plekken gepubliceerd:
+#
+#   1. GitHub Pages  — het huidige doel, blijft draaien als terugweg
+#   2. GHCR          — ghcr.io/teijbaard/tijmenopstoom-nl, het image dat de
+#                      homeserver draait
+#
+# De twee publicatiejobs staan bewust los van elkaar en hangen allebei alleen
+# aan 'build'. Gaat het duwen van het image mis, dan is de run rood en zie je
+# dat, maar Pages wordt gewoon bijgewerkt — en andersom.
+#
+# Zodra de homeserver een week zonder storing draait kunnen de job 'deploy',
+# de stap 'Artefact voor Pages', het bestand CNAME en Pages in de
+# repo-instellingen weg. Tot dat moment is terugvallen één DNS-wijziging.
 name: Build & Deploy Jekyll to GitHub Pages
 
 on:
@@ -13,10 +26,10 @@ on:
         type: boolean
         default: false
 
+# Rechten per job in plaats van hier: alleen 'build' mag terugcommitten en
+# alleen 'image' mag pakketten schrijven.
 permissions:
-  contents: write   # nodig om _data/youtube.yml en _data/hero.yml terug te committen
-  pages: write
-  id-token: write
+  contents: read
 
 concurrency:
   group: "pages"
@@ -25,6 +38,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # nodig om _data/youtube.yml en _data/hero.yml terug te committen
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -79,17 +94,104 @@ jobs:
           JEKYLL_ENV: production   # anders bouwt Jekyll in 'development' en blijven de statistieken uit
         run: bundle exec jekyll build --trace
 
-      - name: Upload artifact
+      - name: Artefact voor Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./_site
 
+      - name: Artefact voor het container-image
+        # Hetzelfde resultaat, maar als gewoon artefact: het pages-artefact is
+        # een eigen formaat dat alleen deploy-pages kan uitpakken.
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: ./_site
+          retention-days: 1
+          if-no-files-found: error
+
+  # --- publicatiedoel 1: GitHub Pages ---------------------------------------
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # --- publicatiedoel 2: image voor de homeserver ---------------------------
+  image:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        # Nodig voor de Dockerfile en docker/nginx.conf; de gebouwde site komt
+        # uit het artefact hieronder en wordt hier niet opnieuw gebouwd.
+
+      - name: Gebouwde site ophalen
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: ./_site
+
+      - name: Nginx-configuratie controleren
+        # Native op de runner, dus zonder emulatie. Vangt een tikfout in
+        # nginx.conf vóór er een kapot image gepubliceerd wordt.
+        run: |
+          docker run --rm \
+            -v "$PWD/docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro" \
+            nginx:1.30.4-alpine nginx -t
+
+      - name: Buildx klaarzetten
+        # Nodig voor een build met meerdere platforms; de standaard-driver
+        # van Docker kan dat niet.
+        uses: docker/setup-buildx-action@v3
+
+      - name: Inloggen bij GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Imagenaam en tags bepalen
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          # De naamruimte volgt de eigenaar van deze repo: GITHUB_TOKEN mag
+          # alleen pakketten schrijven onder 'teijbaard'.
+          images: ghcr.io/teijbaard/tijmenopstoom-nl
+          # 'main' is de tag die de server volgt; 'sha-<commit>' blijft staan en
+          # is waar je op terugvalt als een publicatie stukgaat.
+          tags: |
+            type=raw,value=main
+            type=sha
+
+      - name: Image bouwen en publiceren
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          # De runner is amd64, de homeserver arm64. Zonder deze regel krijg je
+          # een image dat op de server meteen afslaat met "exec format error".
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Meld welk image er klaarstaat
+        run: |
+          {
+            echo "### Image gepubliceerd"
+            echo '```'
+            echo "${{ steps.meta.outputs.tags }}"
+            echo '```'
+            echo "De homeserver pakt de tag \`main\` binnen tien minuten op."
+          } >> "$GITHUB_STEP_SUMMARY"

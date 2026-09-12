@@ -86,3 +86,7 @@ exclude:
   - graphify-out
   - tools            # onderhoudsscripts, horen niet in _site
   - vendor
+  - Dockerfile       # bouwrecept voor de homeserver-container...
+  - docker           # ...en de nginx-configuratie die daarin gaat.
+                     # Zonder deze twee staat de serverconfiguratie publiek
+                     # op https://tijmenopstoom.nl/docker/nginx.conf
