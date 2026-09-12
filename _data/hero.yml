@@ -7,11 +7,12 @@
 #   vast: true   de foto blijft staan tot je hem zelf weer wisselt
 #   vast: false  na een week kiest tools/roteer-hero.py willekeurig een andere
 
-bestand:      "2026-09-05-img1263.webp"
-ingesteld_op: "2026-09-05"
-bron:         "handmatig"
+bestand:      "2026-05-01-img3027.webp"
+ingesteld_op: "2026-09-12"
+bron:         "automatisch"
 vast:         false
 
 # Laatst getoond, nieuwste eerst — wordt gebruikt om herhaling te voorkomen.
 geschiedenis:
+  - "2026-05-01-img3027.webp"
   - "2026-09-05-img1263.webp"
